@@ -1,16 +1,19 @@
 import os
 from flask import Flask
 from flask_restful import Api
-from flask_sqlalchemy import SQLAlchemy
 
-from database import create_database
+from database import db, config_database_path
+from models.User import User
 from resources.User import User
 
 app = Flask(__name__)
 
-api = Api(app)
-db = create_database(app)
+config_database_path(app)
+db.app = app
+db.init_app(app)
+db.create_all()
 
+api = Api(app)
 api.add_resource(User, '/user')
 
 if __name__ == '__main__':
