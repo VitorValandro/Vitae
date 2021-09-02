@@ -4,7 +4,7 @@ from database import db
 
 ma = Marshmallow()
 
-class User(db.Model):
+class UserModel(db.Model):
   def __init__(self, username, email, phone, password):
     self.username = username
     self.email = email
@@ -19,11 +19,11 @@ class User(db.Model):
   password = db.Column(db.String(128), nullable=False)
 
   # Marshmallow schema para converter o objeto User em JSON
-class UserSchema(ma.Schema):
+class UserModelSchema(ma.Schema):
   class Meta:
     fields = ('id', 'username', 'email', 'phone', 'password')
 
 # Esquema para usuário individual
-user_schema = UserSchema() 
+user_schema = UserModelSchema() 
 # Esquema para retorno de múltiplos usuários (-> array)
-users_schema = UserSchema(many=True)
+users_schema = UserModelSchema(many=True)
