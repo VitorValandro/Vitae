@@ -8,6 +8,7 @@ import datetime
 from database import db
 from config import API_TOKEN
 from models.User import UserModel, user_schema, users_schema
+from utils import auth
 
 parser = reqparse.RequestParser()
 parser.add_argument('username', type=str)
@@ -15,9 +16,10 @@ parser.add_argument('email', type=str)
 parser.add_argument('phone', type=str)
 parser.add_argument('password', type=str)
 
-class User(Resource): 
-  def get(self):  
-    response = User.query.with_entities(User.username).all()
+class User(Resource):
+  @auth.auth_required
+  def get(user, self):  
+    response = UserModel.query.with_entities(UserModel.username).all()
     JSONresponse = users_schema.dump(response)
     return make_response(jsonify(JSONresponse), 201)
   
@@ -35,11 +37,11 @@ class User(Resource):
     if user_exists(username):
       return make_response(jsonify({"error":"Já existe um usuário com esse nome"}), 400)
     
-    if User.query.filter_by(email = email).first() is not None:
+    if UserModel.query.filter_by(email = email).first() is not None:
       return make_response(jsonify({"error":"Já existe um usuário com esse email"}), 400)
 
     password = str(bcrypt.hashpw(plain_password, bcrypt.gensalt()).decode('utf-8'))
-    new_user = User(username, email, phone, password)
+    new_user = UserModel(username, email, phone, password)
 
     try:
       db.session.add(new_user)
@@ -68,7 +70,7 @@ class UserAuth(Resource):
       try:
         token = jwt.encode(
           {
-            "user":user.id, 
+            "user": auth.username, 
             "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=24)
           }, API_TOKEN)
         return make_response(jsonify({"token":token}), 201)
@@ -84,6 +86,6 @@ class UserAuth(Resource):
 
 def user_exists(name):
   try:
-    return User.query.filter_by(username = name).one()
+    return UserModel.query.filter_by(username = name).one()
   except:
     None

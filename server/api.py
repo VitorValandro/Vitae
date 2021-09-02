@@ -1,9 +1,11 @@
 from flask import Flask
+from flask.json import jsonify
 from flask_restful import Api
 
 from database import db, config_database_path
 from models.User import UserModel
-from resources.User import UserRoute, UserAuth
+from resources.User import User, UserAuth
+from utils import auth
 
 app = Flask(__name__)
 
@@ -13,7 +15,7 @@ db.init_app(app)
 db.create_all()
 
 api = Api(app)
-api.add_resource(UserRoute, '/user')
+api.add_resource(User, '/user')
 api.add_resource(UserAuth, '/user/auth')
 
 if __name__ == '__main__':
