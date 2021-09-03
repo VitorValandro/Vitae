@@ -17,12 +17,16 @@ parser.add_argument('phone', type=str)
 parser.add_argument('password', type=str)
 
 class User(Resource):
-  def get(self, user_id):  
-    response = UserModel.query.with_entities(UserModel.username).all()
-    JSONresponse = users_schema.dump(response)
-    return make_response(jsonify(JSONresponse), 201)
+  def get(self, user_id):
+    try:
+      user = UserModel.query.get(user_id)
+      JSONresponse = user_schema.dump(user)
+      return make_response(jsonify(JSONresponse), 201)
+    except:
+      return make_response(jsonify({"error":"Ocorreu um erro ao consultar os dados."}), 500)
   
-  def post(self):
+  def post(self, user_id):
+    # user_id == 0 significa CREATE
     request.get_json()
     args = parser.parse_args()
     username = str(args['username'])
@@ -56,7 +60,7 @@ class User(Resource):
     request.get_json()
     data = parser.parse_args()
 
-    if not user_id == str(user_authenticated.id):
+    if not user_id == user_authenticated.id:
       return make_response(jsonify({"error":"Usuário sem permissão para atualizar os dados desse usuário."}), 401)
     
     try:
@@ -67,6 +71,19 @@ class User(Resource):
       db.session.commit()
       JSONresponse = user_schema.dump(user)
       return make_response(jsonify(JSONresponse), 201)
+    except:
+      return make_response(jsonify({"error":"Ocorreu um erro ao atualizar os dados."}), 500)
+  
+  @auth.auth_required
+  def delete(self, user_id, user_authenticated):
+    if not user_id == user_authenticated.id:
+      return make_response(jsonify({"error":"Usuário sem permissão para deletar os dados desse usuário."}), 401)
+    
+    try:
+      user = UserModel.query.get(user_id)
+      db.session.delete(user)
+      db.session.commit()
+      return make_response(jsonify({"message":"Usuário deletado com sucesso"}), 201)
     except:
       return make_response(jsonify({"error":"Ocorreu um erro ao atualizar os dados."}), 500)
 
