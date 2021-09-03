@@ -17,8 +17,7 @@ parser.add_argument('phone', type=str)
 parser.add_argument('password', type=str)
 
 class User(Resource):
-  @auth.auth_required
-  def get(user, self):  
+  def get(self, user_id):  
     response = UserModel.query.with_entities(UserModel.username).all()
     JSONresponse = users_schema.dump(response)
     return make_response(jsonify(JSONresponse), 201)
@@ -51,6 +50,25 @@ class User(Resource):
     except Exception as e:
       print(str(e))
       return make_response(jsonify({"error":"Não foi possível registrar o usuário. Tente novamente mais tarde."}), 500)
+
+  @auth.auth_required
+  def put(self, user_id, user_authenticated):
+    request.get_json()
+    data = parser.parse_args()
+
+    if not user_id == str(user_authenticated.id):
+      return make_response(jsonify({"error":"Usuário sem permissão para atualizar os dados desse usuário."}), 401)
+    
+    try:
+      user = UserModel.query.get(user_id)
+      user.username = str(data["username"])
+      user.email = str(data["email"])
+      user.phone = str(data["phone"])
+      db.session.commit()
+      JSONresponse = user_schema.dump(user)
+      return make_response(jsonify(JSONresponse), 201)
+    except:
+      return make_response(jsonify({"error":"Ocorreu um erro ao atualizar os dados."}), 500)
 
 class UserAuth(Resource):
   def post(self):

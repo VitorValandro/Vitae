@@ -24,8 +24,8 @@ def auth_required(resource):
     try:
       data = jwt.decode(token, API_TOKEN, algorithms=["HS256"])
       current_user = UserModel.query.filter_by(username = data["user"]).one()
-      print("ALO", current_user)
-      return resource(current_user, *args, **kwargs)
-    except:
+      return resource(user_authenticated=current_user, *args, **kwargs)
+    except Exception as e:
+      print('Error: ', str(e))
       return make_response(jsonify({"error": "Token inválido ou expirado"}), 401)
   return login_decorator

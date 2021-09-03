@@ -21,7 +21,7 @@ class UserModel(db.Model):
   # Marshmallow schema para converter o objeto User em JSON
 class UserModelSchema(ma.Schema):
   class Meta:
-    fields = ('id', 'username', 'email', 'phone', 'password')
+    fields = ('id', 'username', 'email', 'phone')
 
 # Esquema para usuário individual
 user_schema = UserModelSchema() 

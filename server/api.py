@@ -15,7 +15,7 @@ db.init_app(app)
 db.create_all()
 
 api = Api(app)
-api.add_resource(User, '/user')
+api.add_resource(User, '/user/<string:user_id>')
 api.add_resource(UserAuth, '/user/auth')
 
 if __name__ == '__main__':
