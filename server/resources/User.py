@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, make_response
 from flask.json import JSONDecoder
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 import bcrypt
 import jwt
 import datetime
@@ -9,12 +9,6 @@ from database import db
 from config import API_TOKEN
 from models.User import UserModel, user_schema, users_schema
 from utils import auth
-
-parser = reqparse.RequestParser()
-parser.add_argument('username', type=str)
-parser.add_argument('email', type=str)
-parser.add_argument('phone', type=str)
-parser.add_argument('password', type=str)
 
 class User(Resource):
   def get(self, user_id):
@@ -27,24 +21,21 @@ class User(Resource):
   
   def post(self, user_id):
     # user_id == 0 significa CREATE
-    request.get_json()
-    args = parser.parse_args()
-    username = str(args['username'])
-    email = str(args["email"])
-    phone = str(args["phone"])
-    plain_password = str(args["password"]).encode("utf-8")
+    data = request.get_json()
+
+    plain_password = data["password"].encode("utf-8")
     
-    if username is None or plain_password is None or email is None:
+    if data["username"] is None or plain_password is None or data["email"] is None:
       return make_response(jsonify({"error":"Todas as informações devem ser preenchidas"}), 400)
 
-    if user_exists(username):
+    if user_exists(data["username"]):
       return make_response(jsonify({"error":"Já existe um usuário com esse nome"}), 400)
     
-    if UserModel.query.filter_by(email = email).first() is not None:
+    if UserModel.query.filter_by(email = data["email"]).first() is not None:
       return make_response(jsonify({"error":"Já existe um usuário com esse email"}), 400)
 
     password = str(bcrypt.hashpw(plain_password, bcrypt.gensalt()).decode('utf-8'))
-    new_user = UserModel(username, email, phone, password)
+    new_user = UserModel(data["username"], data["email"], data["phone"], password)
 
     try:
       db.session.add(new_user)
@@ -57,21 +48,27 @@ class User(Resource):
 
   @auth.auth_required
   def put(self, user_id, user_authenticated):
-    request.get_json()
-    data = parser.parse_args()
-
+    data = request.get_json()
+ 
     if not user_id == user_authenticated.id:
       return make_response(jsonify({"error":"Usuário sem permissão para atualizar os dados desse usuário."}), 401)
     
+    if user_exists(data["username"]):
+      return make_response(jsonify({"error":"Já existe um usuário com esse nome"}), 400)
+    
+    if UserModel.query.filter_by(email = data["email"]).first() is not None:
+      return make_response(jsonify({"error":"Já existe um usuário com esse email"}), 400)
+    
     try:
       user = UserModel.query.get(user_id)
-      user.username = str(data["username"])
-      user.email = str(data["email"])
-      user.phone = str(data["phone"])
+      user.username = data["username"]
+      user.email = data["email"]
+      user.phone = data["phone"]
       db.session.commit()
       JSONresponse = user_schema.dump(user)
       return make_response(jsonify(JSONresponse), 201)
-    except:
+    except Exception as e:
+      print(str(e))
       return make_response(jsonify({"error":"Ocorreu um erro ao atualizar os dados."}), 500)
   
   @auth.auth_required
