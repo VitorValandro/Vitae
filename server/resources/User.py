@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, make_response
 from flask.json import JSONDecoder
 from flask_restful import Resource
+from sqlalchemy.orm import joinedload
 import bcrypt
 
 from database import db
@@ -10,10 +11,13 @@ from utils import auth
 class UserRoute(Resource):
   def get(self, user_id):
     try:
-      user = User.query.get(user_id)
+      print(user_id)
+      user = User.query.filter(User.id==user_id).options(joinedload('education')).first()
+      print(user)
       JSONresponse = user_schema.dump(user)
       return make_response(jsonify(JSONresponse), 201)
-    except:
+    except Exception as e:
+      print(str(e))
       return make_response(jsonify({"error":"Ocorreu um erro ao consultar os dados."}), 500)
   
   def post(self, user_id):
@@ -80,6 +84,15 @@ class UserRoute(Resource):
       return make_response(jsonify({"message":"Usuário deletado com sucesso"}), 201)
     except:
       return make_response(jsonify({"error":"Ocorreu um erro ao atualizar os dados."}), 500)
+
+class UserList(Resource):
+  def get(self):
+    try:
+      users = User.query.with_entities(User.username).all()
+      JSONresponse = users_schema.dump(users)
+      return make_response(jsonify(JSONresponse), 201)
+    except:
+      return make_response(jsonify({"error": "Ocorreu um erro ao consultar os dados."}), 500)
 
 def user_exists(name):
   try:

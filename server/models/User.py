@@ -15,7 +15,7 @@ class User(db.Model):
   phone = db.Column(db.String(18), nullable=True)
   password = db.Column(db.String(128), nullable=False)
 
-  # Marshmallow schema para converter o objeto User em JSON
+# Marshmallow schema para converter o objeto User em JSON
 class UserSchema(ma.Schema):
   class Meta:
     fields = ('id', 'username', 'email', 'phone')
