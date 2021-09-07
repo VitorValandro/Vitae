@@ -1,10 +1,7 @@
-from flask_marshmallow import Marshmallow
+from models import ma
+from models import db
 
-from database import db
-
-ma = Marshmallow()
-
-class UserModel(db.Model):
+class User(db.Model):
   def __init__(self, username, email, phone, password):
     self.username = username
     self.email = email
@@ -19,11 +16,11 @@ class UserModel(db.Model):
   password = db.Column(db.String(128), nullable=False)
 
   # Marshmallow schema para converter o objeto User em JSON
-class UserModelSchema(ma.Schema):
+class UserSchema(ma.Schema):
   class Meta:
     fields = ('id', 'username', 'email', 'phone')
 
 # Esquema para usuário individual
-user_schema = UserModelSchema() 
+user_schema = UserSchema() 
 # Esquema para retorno de múltiplos usuários (-> array)
-users_schema = UserModelSchema(many=True)
+users_schema = UserSchema(many=True)

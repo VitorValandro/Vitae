@@ -20,7 +20,11 @@ class Info(Resource):
 
     data = request.get_json()
     new_info = Model(**data)
-    simple_schema.sanitize_data(new_info)
+    
+    try:
+      simple_schema.sanitize_data(new_info)
+    except ValueError as err:
+      return make_response(jsonify({"error": str(err)}), 400)
 
     try:
       db.session.add(new_info)
@@ -38,9 +42,3 @@ class Info(Resource):
   #@auth.auth_required
   def delete(self, user_id, user_authenticated):
     pass
-
-def user_exists(name):
-  try:
-    return User.query.filter_by(username = name).one()
-  except:
-    None

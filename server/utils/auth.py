@@ -3,7 +3,7 @@
 # protegidos por autenticação.
 
 from functools import wraps
-from models.User import UserModel
+from models.User import User
 from flask import request, jsonify, make_response
 import jwt
 
@@ -23,7 +23,7 @@ def auth_required(resource):
     
     try:
       data = jwt.decode(token, API_TOKEN, algorithms=["HS256"])
-      current_user = UserModel.query.filter_by(username = data["user"]).one()
+      current_user = User.query.filter_by(username = data["user"]).one()
       return resource(user_authenticated=current_user, *args, **kwargs)
     except Exception as e:
       print('Error: ', str(e))
