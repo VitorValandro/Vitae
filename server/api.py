@@ -21,7 +21,7 @@ api = Api(app)
 api.add_resource(UserRoute, '/user/<int:user_id>')
 api.add_resource(UserAuth, '/user/auth')
 
-api.add_resource(Info, '/user/<int:user_id>/info/<string:info_table>')
+api.add_resource(Info, '/user/<int:user_id>/info/<string:info_table>/<int:info_id>')
 
 if __name__ == '__main__':
   app.run(debug=True)

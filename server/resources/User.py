@@ -17,7 +17,7 @@ class UserRoute(Resource):
       return make_response(jsonify({"error":"Ocorreu um erro ao consultar os dados."}), 500)
   
   def post(self, user_id):
-    # user_id == 0 significa CREATE
+    # user_id == 0 é para criar novo registro
     data = request.get_json()
 
     plain_password = data["password"].encode("utf-8")
