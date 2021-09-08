@@ -82,8 +82,9 @@ class UserRoute(Resource):
       db.session.delete(user)
       db.session.commit()
       return make_response(jsonify({"message":"Usuário deletado com sucesso"}), 201)
-    except:
-      return make_response(jsonify({"error":"Ocorreu um erro ao atualizar os dados."}), 500)
+    except Exception as e:
+      print(str(e))
+      return make_response(jsonify({"error":"Ocorreu um erro ao deletar os dados."}), 500)
 
 class UserList(Resource):
   def get(self):

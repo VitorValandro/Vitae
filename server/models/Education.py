@@ -1,6 +1,8 @@
 from models import ma
 from models import db
 
+from sqlalchemy.orm import backref
+
 import datetime
 
 class Education(db.Model):
@@ -22,8 +24,7 @@ class Education(db.Model):
   start_date = db.Column(db.Date, nullable=False)
   end_date = db.Column(db.Date, nullable=False)
 
-  user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-  user = db.relationship('User', backref=db.backref('education', lazy=True))
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
 
 # Marshmallow schema para converter o objeto User em JSON
 class EducationSchema(ma.Schema):

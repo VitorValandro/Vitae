@@ -1,6 +1,8 @@
 from models import ma
 from models import db
 
+from models.Education import EducationSchema
+
 class User(db.Model):
   def __init__(self, username, email, phone, password):
     self.username = username
@@ -14,11 +16,15 @@ class User(db.Model):
   email = db.Column(db.String(120), unique=True, nullable=False)
   phone = db.Column(db.String(18), nullable=True)
   password = db.Column(db.String(128), nullable=False)
+  
+  education = db.relationship("Education", cascade="all, delete")
 
 # Marshmallow schema para converter o objeto User em JSON
 class UserSchema(ma.Schema):
+  education = ma.Nested(EducationSchema, many=True)
+
   class Meta:
-    fields = ('id', 'username', 'email', 'phone')
+    fields = ('id', 'username', 'email', 'phone', 'education')
 
 # Esquema para usuário individual
 user_schema = UserSchema() 
