@@ -5,6 +5,7 @@ from flask_restful import Api
 from database import db, config_database_path
 from models.User import User
 from models.Education import Education
+from models.Professional import Professional
 
 from resources.User import UserRoute, UserList
 from resources.UserAuth import UserAuth

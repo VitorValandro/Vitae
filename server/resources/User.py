@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request, make_response
 from flask.json import JSONDecoder
 from flask_restful import Resource
-from sqlalchemy.orm import joinedload
 import bcrypt
 
 from database import db
@@ -10,8 +9,15 @@ from utils import auth
 
 class UserRoute(Resource):
   def get(self, user_id):
+    # Retorna todas as informações de um usuário
     try:
-      user = User.query.filter(User.id==user_id).options(joinedload('education')).first()
+      user = (User
+        .query
+        .join('education')
+        .join('professional')
+        .filter(User.id==user_id)
+      ).first()
+
       JSONresponse = user_schema.dump(user)
       return make_response(jsonify(JSONresponse), 201)
     except Exception as e:
@@ -47,6 +53,7 @@ class UserRoute(Resource):
 
   @auth.auth_required
   def put(self, user_id, user_authenticated):
+    # Atualiza informações da tabela <user>
     data = request.get_json()
  
     if not user_id == user_authenticated.id:
@@ -85,6 +92,7 @@ class UserRoute(Resource):
       return make_response(jsonify({"error":"Ocorreu um erro ao deletar os dados."}), 500)
 
 class UserList(Resource):
+  # Retorna uma lista com o nome de todos os usuários
   def get(self):
     try:
       users = User.query.with_entities(User.username).all()

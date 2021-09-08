@@ -5,7 +5,7 @@ from utils.date_converter import date_converter
 class Professional(db.Model):
   def __init__(self, role, company, workload, description, start_date, end_date, user_id):
     self.role = role
-    self.institution = company
+    self.company = company
     self.workload = workload
     self.description = description
     self.start_date = start_date
@@ -15,7 +15,7 @@ class Professional(db.Model):
   # Definição das colunas
   id = db.Column(db.Integer, primary_key=True)
   role = db.Column(db.String(64), nullable=False)
-  company = db.Column(db.String(128), nullable=False)
+  company = db.Column(db.String(200), nullable=False)
   workload = db.Column(db.Integer, nullable=True)
   description = db.Column(db.String(300), nullable=True)
   start_date = db.Column(db.Date, nullable=False)

@@ -4,11 +4,13 @@ from flask_restful import Resource
 
 from database import db
 from models.Education import Education, education_schema, education_many_schema
+from models.Professional import Professional, professional_schema, professional_many_schema
 from utils import auth
 
 # Dicionário que armazena as implementações dos Models
 INFO_MODELS = {
-  "education": [Education, education_schema, education_many_schema]
+  "education": [Education, education_schema, education_many_schema],
+  "professional": [Professional, professional_schema, professional_many_schema]
 }
 
 class Info(Resource):
@@ -33,7 +35,6 @@ class Info(Resource):
         Garante que o usuário está alterando as próprias informações, e não de outro user_id
       '''
       return make_response(jsonify({"error": "Usuário inexistente ou sem permissão para alterar estes dados."}), 401)
-    
     new_info = Model(**data) # Cria um novo objeto instanciado de o db.Model com as informações da requisição
 
     try:
