@@ -1,9 +1,6 @@
 from models import ma
 from models import db
-
-from sqlalchemy.orm import backref
-
-import datetime
+from utils.date_converter import date_converter
 
 class Education(db.Model):
   def __init__(self, name, institution, start_date, end_date, workload, grade, user_id):
@@ -24,24 +21,20 @@ class Education(db.Model):
   start_date = db.Column(db.Date, nullable=False)
   end_date = db.Column(db.Date, nullable=False)
 
-  user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+  user_id = db.Column(db.Integer, db.ForeignKey(
+      'user.id', ondelete="CASCADE"), nullable=False)
 
 # Marshmallow schema para converter o objeto User em JSON
 class EducationSchema(ma.Schema):
-  def sanitize_data(self, instance:Education):
-    # IMPLEMENTAR CONTROLE DE EXCEÇÃO
-    start_date = instance.start_date
-    end_date = instance.end_date
-    try:
-      instance.start_date = datetime.date(int(start_date[0:4]), int(start_date[4:6]), int(start_date[6:8]))
-      instance.end_date = datetime.date(int(end_date[0:4]), int(end_date[4:6]), int(end_date[6:8]))
-    except:
-      raise ValueError('O valor de start_date e end_date deve ser YYYYMMDD')
+  def sanitize_data(self, instance: Education):
+    date_converter(instance)
 
   class Meta:
-    fields = ('id', 'name', 'institution', 'workload', 'grade', 'start_date', 'end_date', 'user_id')
+    fields = ('id', 'name', 'institution', 'workload',
+              'grade', 'start_date', 'end_date', 'user_id')
+
 
 # Esquema para usuário individual
-education_schema = EducationSchema() 
+education_schema = EducationSchema()
 # Esquema para retorno de múltiplos usuários (-> array)
 education_many_schema = EducationSchema(many=True)

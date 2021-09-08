@@ -11,9 +11,7 @@ from utils import auth
 class UserRoute(Resource):
   def get(self, user_id):
     try:
-      print(user_id)
       user = User.query.filter(User.id==user_id).options(joinedload('education')).first()
-      print(user)
       JSONresponse = user_schema.dump(user)
       return make_response(jsonify(JSONresponse), 201)
     except Exception as e:
