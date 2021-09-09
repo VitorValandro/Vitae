@@ -11,12 +11,7 @@ class UserRoute(Resource):
   def get(self, user_id):
     # Retorna todas as informações de um usuário
     try:
-      user = (User
-        .query
-        .join('education')
-        .join('professional')
-        .filter(User.id==user_id)
-      ).first()
+      user = User.query.filter(User.id==user_id).first()
 
       JSONresponse = user_schema.dump(user)
       return make_response(jsonify(JSONresponse), 201)

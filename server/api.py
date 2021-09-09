@@ -6,6 +6,7 @@ from database import db, config_database_path
 from models.User import User
 from models.Education import Education
 from models.Professional import Professional
+from models.Projects import Projects
 
 from resources.User import UserRoute, UserList
 from resources.UserAuth import UserAuth
@@ -22,7 +23,6 @@ api = Api(app)
 api.add_resource(UserRoute, '/user/<int:user_id>')
 api.add_resource(UserList, '/users/')
 api.add_resource(UserAuth, '/user/auth')
-
 
 api.add_resource(Info, '/user/<int:user_id>/info/<string:info_table>/<int:info_id>')
 

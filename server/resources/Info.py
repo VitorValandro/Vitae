@@ -5,12 +5,14 @@ from flask_restful import Resource
 from database import db
 from models.Education import Education, education_schema, education_many_schema
 from models.Professional import Professional, professional_schema, professional_many_schema
+from models.Projects import Projects, projects_schema, projects_many_schema
 from utils import auth
 
 # Dicionário que armazena as implementações dos Models
 INFO_MODELS = {
   "education": [Education, education_schema, education_many_schema],
-  "professional": [Professional, professional_schema, professional_many_schema]
+  "professional": [Professional, professional_schema, professional_many_schema],
+  "projects": [Projects, projects_schema, projects_many_schema]
 }
 
 class Info(Resource):
