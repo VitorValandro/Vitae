@@ -1,6 +1,6 @@
 from models import ma
 from models import db
-from utils.date_converter import date_converter
+from utils.date import date_converter
 
 class Professional(db.Model):
   def __init__(self, role, company, workload, description, start_date, end_date, user_id):

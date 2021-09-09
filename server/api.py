@@ -7,6 +7,7 @@ from models.User import User
 from models.Education import Education
 from models.Professional import Professional
 from models.Projects import Projects
+from models.Production import Production
 
 from resources.User import UserRoute, UserList
 from resources.UserAuth import UserAuth

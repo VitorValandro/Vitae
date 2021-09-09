@@ -1,6 +1,6 @@
 from models import ma
 from models import db
-from utils.date_converter import date_converter
+from utils.date import date_converter
 
 class Education(db.Model):
   def __init__(self, name, institution, start_date, end_date, workload, grade, user_id):

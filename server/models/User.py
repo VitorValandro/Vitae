@@ -5,6 +5,7 @@ from models import db
 from models.Education import EducationSchema
 from models.Professional import ProfessionalSchema
 from models.Projects import ProjectsSchema
+from models.Production import ProductionSchema
 
 class User(db.Model):
   def __init__(self, username, email, phone, password):
@@ -23,15 +24,17 @@ class User(db.Model):
   education = db.relationship("Education", cascade="all, delete")
   professional = db.relationship("Professional", cascade="all, delete")
   projects = db.relationship("Projects", cascade="all, delete")
+  production = db.relationship("Production", cascade="all, delete")
 
 # Marshmallow schema para converter o objeto User em JSON
 class UserSchema(ma.Schema):
   education = ma.Nested(EducationSchema, many=True)
   professional = ma.Nested(ProfessionalSchema, many=True)
   projects = ma.Nested(ProjectsSchema, many=True)
+  production = ma.Nested(ProductionSchema, many=True)
 
   class Meta:
-    fields = ('id', 'username', 'email', 'phone', 'education', 'professional', 'projects')
+    fields = ('id', 'username', 'email', 'phone', 'education', 'professional', 'projects', 'production')
 
 # Esquema para usuário individual
 user_schema = UserSchema() 

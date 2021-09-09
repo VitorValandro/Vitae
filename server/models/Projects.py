@@ -1,6 +1,6 @@
 from models import ma
 from models import db
-from utils.date_converter import date_converter
+from utils.date import date_converter
 
 class Projects(db.Model):
   def __init__(self, name, description, nature, situation, link, start_date, end_date, user_id, members):

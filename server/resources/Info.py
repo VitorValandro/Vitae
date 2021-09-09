@@ -6,13 +6,16 @@ from database import db
 from models.Education import Education, education_schema, education_many_schema
 from models.Professional import Professional, professional_schema, professional_many_schema
 from models.Projects import Projects, projects_schema, projects_many_schema
+from models.Production import Production, production_schema, production_many_schema
+
 from utils import auth
 
 # Dicionário que armazena as implementações dos Models
 INFO_MODELS = {
   "education": [Education, education_schema, education_many_schema],
   "professional": [Professional, professional_schema, professional_many_schema],
-  "projects": [Projects, projects_schema, projects_many_schema]
+  "projects": [Projects, projects_schema, projects_many_schema],
+  "production": [Production, production_schema, production_many_schema]
 }
 
 class Info(Resource):
@@ -26,9 +29,9 @@ class Info(Resource):
   @auth.auth_required
   def post(self, user_id, info_table, info_id, user_authenticated):
     # info_id == 0 é para criar novo registro
-
     # Pega o Model da informação correspondente
     Model, simple_schema, many_schema = INFO_MODELS[info_table]
+
     data = request.get_json()
 
     if not user_id == user_authenticated.id == data["user_id"]:

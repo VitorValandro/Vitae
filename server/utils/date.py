@@ -21,3 +21,11 @@ def date_converter(instance):
 
   instance.start_date = start_date
   instance.end_date = end_date
+
+def check_published_year(instance):
+  year = instance.date_year
+  if len(year) != 4:
+    raise ValueError('O valor do ano de publicação deve ser YYYY')
+
+  if int(year) <= 1900 or int(year) >= 2100:
+    raise ValueError('O valor das datas deve ser entre 1901 e 2099')
