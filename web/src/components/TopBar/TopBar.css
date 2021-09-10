@@ -1,0 +1,58 @@
+.topbar-container{
+  width: 100%;
+  height: 10%;
+  background-color: var(--white-bg);
+  position: absolute;
+  top: 0;
+  color: var(--main-bg-color);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 50px;
+  font-size: 1.2rem;
+}
+
+.left-content{
+  width: 33%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.left-content img {
+  cursor: pointer;
+}
+
+.center-content{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-content{
+  width: 33%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: auto;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.nav-btn:hover{
+  background-color: #e0e0e0;
+  border-bottom: 3px solid #5BC0BE;
+}

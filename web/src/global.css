@@ -1,0 +1,19 @@
+:root {
+  --main-bg-color: #051923;
+  --main-bg-color-lighter: #103649;
+  --ligh-grey: #8a8989;
+  --white-bg: #edf2f4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, #root {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Roboto';
+  font-weight: 300;
+}
