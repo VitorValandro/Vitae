@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import AuthScreen from './pages/AuthScreen/AuthScreen';
+import Routes from './routes';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthScreen />
+    <Routes />
   </React.StrictMode>,
   document.getElementById('root')
 );
