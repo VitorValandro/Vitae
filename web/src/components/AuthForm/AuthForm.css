@@ -30,6 +30,11 @@
   transition: all .5s;
 }
 
+.submit-message{
+  margin-top: 10px;
+  color: black;
+}
+
 .form-button:hover{
   background-color: #be1b05;
 }
