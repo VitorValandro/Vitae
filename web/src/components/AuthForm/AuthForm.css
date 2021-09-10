@@ -11,7 +11,6 @@
 }
 
 .form-input{
-  background-color: var(--white-bg);
   width: 100%;
   margin-top: 20px;
   padding: 10px;
@@ -25,14 +24,14 @@
   padding: 10px;
   border-radius: 10px;
   border: 0;
-  background-color: var(--main-bg-color);
+  background-color: var(--details);
   color: white;
   cursor: pointer;
   transition: all .5s;
 }
 
 .form-button:hover{
-  background-color: var(--main-bg-color-lighter);
+  background-color: #be1b05;
 }
 
 .footer-info{
@@ -43,7 +42,7 @@
   border: 0;
   background-color: transparent;
   font-size: 1rem;
-  color: white;
+  color: var(--details);
   text-decoration: underline;
   cursor: pointer;
 }

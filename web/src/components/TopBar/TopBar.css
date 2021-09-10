@@ -50,9 +50,10 @@
   width: auto;
   padding: 0 10px;
   cursor: pointer;
+  transition: all .2s;
 }
 
 .nav-btn:hover{
   background-color: #e0e0e0;
-  border-bottom: 3px solid #5BC0BE;
+  border-bottom: 3px solid var(--details);
 }

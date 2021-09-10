@@ -1,5 +1,4 @@
-import { React, useState, useEffect } from 'react';
-import TopBar from '../TopBar/TopBar';
+import { React, useState } from 'react';
 
 import './AuthForm.css';
 
@@ -12,7 +11,6 @@ function AuthForm({ register }) {
 
   return (
     <>
-      <TopBar />
       <div className="form-content">
         {registerFlag ? (
           <>

@@ -1,8 +1,8 @@
 :root {
-  --main-bg-color: #051923;
-  --main-bg-color-lighter: #103649;
+  --main-bg-color: #363945;
   --ligh-grey: #8a8989;
   --white-bg: #edf2f4;
+  --details: #f4442e;
 }
 
 * {
