@@ -1,5 +1,6 @@
 .form-content{
-  width: 450px;
+  width: 90%;
+  max-width: 450px;
   height: auto;
   background-color: var(--white-bg);
   border-radius: 20px;

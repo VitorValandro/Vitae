@@ -11,7 +11,7 @@
     box-sizing: border-box;
 }
 
-body, #root {
+#root {
   width: auto;
   height: auto;
   font-family: 'Roboto';
