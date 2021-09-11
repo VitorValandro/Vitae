@@ -8,6 +8,12 @@
 }
 
 .home-content{
-  margin-top: 5%;
+  margin-top: 10px;
   width: 60%;
+}
+
+@media (max-width: 900px){
+  .home-content{
+    width: 90%;
+  }
 }

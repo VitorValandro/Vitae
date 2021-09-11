@@ -12,6 +12,10 @@ function Home() {
       <div className="home-container">
         <div className="home-content">
           <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
         </div>
       </div>
       <Footer />

@@ -1,5 +1,6 @@
 import React from 'react';
 import TopBar from '../../components/TopBar/TopBar';
+import Footer from '../../components/Footer/Footer';
 
 import '../../global.css';
 import './AuthScreen.css';
@@ -15,6 +16,7 @@ function AuthScreen() {
         </div>
         <AuthForm register={true} />
       </div>
+      <Footer />
     </>
   );
 }
