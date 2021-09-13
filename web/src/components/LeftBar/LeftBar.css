@@ -1,0 +1,42 @@
+.leftbar-container{
+  display:flex;
+  justify-content: center;
+  width: 18%;
+  margin-right: 10%;
+  color: black;
+  background-color: var(--white-bg);
+}
+
+.leftbar-title{
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--details);
+}
+
+.leftbar-content{
+  margin-top: 5%;
+  border-top: 3px solid var(--details);
+  border-bottom: 3px solid var(--details);
+  background-color: var(--white-bg);
+  position: fixed;
+}
+
+.leftbar-item{
+  color: var(--light-grey);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 10% 0;
+  padding: 2% 5%;
+  list-style: none;
+  width: 100%;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.leftbar-item:hover{
+  background-color: #e0e0e0;
+  border-right: 3px solid var(--details);
+  color: var(--main-bg-color);
+  margin-left: 10%;
+}

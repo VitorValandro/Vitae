@@ -20,14 +20,16 @@ function Footer() {
       <div className="footer-right">
         <img 
           className="footer-icon" 
-          src={process.env.PUBLIC_URL + "/icons/github.svg"}  
-          alt="Go up" 
-        />
-        <img 
-          className="footer-icon" 
           src={process.env.PUBLIC_URL + "/icons/arrow-up.svg"} 
-          alt="Repositório do projeto" 
+          alt="Ir para cima"
+          title="Ir para cima"
           onClick={scrollToTop}
+        />
+        <img
+          className="footer-icon"
+          src={process.env.PUBLIC_URL + "/icons/github.svg"}
+          alt="Repositório do projeto"
+          title="Repositório do projeto"
         />
       </div>
     </div>

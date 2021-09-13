@@ -1,0 +1,19 @@
+.user-container{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 100vh;
+  color: black;
+  height: 100%;
+}
+
+.user-content{
+  margin-top: 10px;
+  width: 60%;
+}
+
+@media (max-width: 900px){
+  .user-content{
+    width: 90%;
+  }
+}
