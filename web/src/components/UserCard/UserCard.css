@@ -1,4 +1,4 @@
-.user-info-container{
+.usercard-info-container{
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -10,64 +10,64 @@
   transition: all .2s;
 }
 
-.user-info-container:not(:first-child){
+.usercard-info-container:not(:first-child){
   margin-top: 5%;
 }
 
-.user-info-container:last-child{
+.usercard-info-container:last-child{
   margin-bottom: 5%;
 }
 
-.user-info-container:hover{
+.usercard-info-container:hover{
   transform: scale(1.01);
 }
 
-.user-info-image{
+.usercard-info-image{
   border-radius: 10%;
   width: 120px;
   cursor: pointer;
 }
 
-.user-info-right{
+.usercard-info-right{
   margin-left: 40px;
   flex-direction: column;
   display: flex;
 }
 
-.user-info-title{
+.usercard-info-title{
   font-size: 1.3rem;
   font-weight: 500;
   cursor: pointer;
   transition: all .2s;
 }
 
-.user-info-title:hover{
+.usercard-info-title:hover{
   color: var(--details);
 }
 
-.user-info-subtitle{
+.usercard-info-subtitle{
   color: #646464;
 }
 
-.user-info-description{
+.usercard-info-description{
   margin-top: 10px;
   text-align: justify;
 }
 
-.user-info-header{
+.usercard-info-header{
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.user-info-header div{
+.usercard-info-header div{
   display: flex;
   width: 100%;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.user-info-link{
+.usercard-info-link{
   font-weight: 500;
   font-size: 1rem;
   color: var(--details);
@@ -77,12 +77,12 @@
 }
 
 @media (max-width: 900px){
-  .user-info-image{
+  .usercard-info-image{
     width: 60px;
     margin-right: 10px;
   }
 
-  .user-info-right{
+  .usercard-info-right{
     margin: 0;
   }
 }

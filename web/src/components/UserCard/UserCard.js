@@ -21,23 +21,23 @@ function UserCard() {
 
 function UserCardDesktop() {
   return (
-    <div className="user-info-container">
-      <div className="user-info-left">
+    <div className="usercard-info-container">
+      <div className="usercard-info-left">
         <img
-          className="user-info-image"
+          className="usercard-info-image"
           src="https://github.com/V.png"
           alt="foto do usuário"
         />
       </div>
-      <div className="user-info-right">
-        <div className="user-info-header">
+      <div className="usercard-info-right">
+        <div className="usercard-info-header">
           <div>
-            <span className="user-info-title">Vitor Matheus Valandro da Rosa</span>
-            <span className="user-info-subtitle">Professor Doutor Alcione Talaska</span>
+            <span className="usercard-info-title">Vitor Matheus Valandro da Rosa</span>
+            <span className="usercard-info-subtitle">Professor Doutor Alcione Talaska</span>
           </div>
-          <span className="user-info-link">Perfil completo</span>
+          <span className="usercard-info-link">Perfil completo</span>
         </div>
-        <span className="user-info-description">
+        <span className="usercard-info-description">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
           when an unknown printer took a galley of type and scrambled it to make a type specimen book.
@@ -53,20 +53,20 @@ function UserCardDesktop() {
 
 function UserCardMobile(){
   return (
-    <div className="user-info-container">
-      <div className="user-info-right">
-        <div className="user-info-header">
+    <div className="usercard-info-container">
+      <div className="usercard-info-right">
+        <div className="usercard-info-header">
           <img
-            className="user-info-image"
+            className="usercard-info-image"
             src="https://github.com/V.png"
             alt="foto do usuário"
           />
           <div>
-            <span className="user-info-title">Vitor Matheus Valandro da Rosa</span>
-            <span className="user-info-subtitle">Professor Doutor Alcione Talaska</span>
+            <span className="usercard-info-title">Vitor Matheus Valandro da Rosa</span>
+            <span className="usercard-info-subtitle">Professor Doutor Alcione Talaska</span>
           </div>
         </div>
-        <span className="user-info-description">
+        <span className="usercard-info-description">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
           when an unknown printer took a galley of type and scrambled it to make a type specimen book.

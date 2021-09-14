@@ -1,0 +1,31 @@
+.user-subsection{
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-subsection-title{
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.user-subsection-subtitle{
+  font-size: 1.2rem;
+}
+
+.user-subsection-info, .user-subsection-description {
+  margin: 10px 0;
+  text-align: justify;
+}
+
+.user-subsection-info > li{
+  list-style: none;
+}
+
+.user-subsection-list{
+  margin-left: 5%;
+}
+
+b{
+  font-weight: 500;
+}

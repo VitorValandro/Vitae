@@ -10,6 +10,75 @@
 .user-content{
   margin-top: 10px;
   width: 60%;
+  background-color: var(--white-bg);
+  height: auto;
+  margin: 50px 0;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.user-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.user-info-title{
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.user-info-subtitle{
+  font-size: 1.1rem;
+  color: var(--light-grey);
+}
+
+.user-info-description{
+  margin-top: 10px;
+  text-align: justify;
+}
+
+.user-header-left{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+}
+
+.user-header-left img {
+  border-radius: 10%;
+  width: 200px;
+  cursor: pointer;
+}
+
+.user-header-left div {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.user-header-left b {
+  font-weight: 500;
+}
+
+.user-header-right{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+}
+
+hr {
+  margin: 5% 10px;
+  border: 1px solid var(--main-bg-color);
+}
+
+.user-section-content{
+  padding: 0 50px;
+}
+
+.user-section-title{
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 @media (max-width: 900px){
