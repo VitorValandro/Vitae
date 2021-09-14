@@ -14,7 +14,7 @@
   height: auto;
   margin: 50px 0;
   border-radius: 5px;
-  padding: 20px;
+  padding: 1%;
 }
 
 .user-header{
@@ -47,7 +47,7 @@
 
 .user-header-left img {
   border-radius: 10%;
-  width: 200px;
+  width: 90%;
   cursor: pointer;
 }
 
@@ -84,5 +84,31 @@ hr {
 @media (max-width: 900px){
   .user-content{
     width: 90%;
+  }
+  .user-container{
+    justify-content: center;
+  }
+  .user-header{
+    flex-direction: column;
+  }
+  .user-header-left{
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .user-header-left img{
+    width: 25%;
+    margin-right: 10px;
+  }
+  .user-header-right{
+    width: 100%;
+    padding: 10px;
+  }
+  .user-info-title{
+    font-size: 1.5rem;
+  }
+  .user-section-content{
+    padding: 0 25px;
   }
 }

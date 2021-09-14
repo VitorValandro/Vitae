@@ -39,7 +39,7 @@ function User() {
           </div>
           <hr />
           <div className="user-section-content">
-            <span className="user-section-title">Educação Acadêmica</span>
+            <span id="education" className="user-section-title">Educação Acadêmica</span>
             <Education />
             <Education />
             <Education />
@@ -47,7 +47,7 @@ function User() {
           </div>
           <hr />
           <div className="user-section-content">
-            <span className="user-section-title">Experiência Profissional</span>
+            <span id="professional" className="user-section-title">Experiência Profissional</span>
             <Professional />
             <Professional />
             <Professional />
@@ -55,7 +55,7 @@ function User() {
           </div>
           <hr />
           <div className="user-section-content">
-            <span className="user-section-title">Produções</span>
+            <span id="productions" className="user-section-title">Produções</span>
             <Production />
             <Production />
             <Production />
@@ -63,7 +63,7 @@ function User() {
           </div>
           <hr />
           <div className="user-section-content">
-            <span className="user-section-title">Projetos</span>
+            <span id="projects" className="user-section-title">Projetos</span>
             <Project />
             <Project />
             <Project />

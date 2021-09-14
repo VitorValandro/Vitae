@@ -7,18 +7,26 @@ function LeftBar() {
   return (
     <div className="leftbar-container">
       <div className="leftbar-content">
-        <li className="leftbar-item">
-          Educação
-        </li>
-        <li className="leftbar-item">
-          Experiência profissional
-        </li>
-        <li className="leftbar-item">
-          Projetos
-        </li>
-        <li className="leftbar-item">
-          Produções
-        </li>
+        <a href="#education">
+          <li className="leftbar-item">
+            Educação
+          </li>
+        </a>
+        <a href="#professional">
+          <li className="leftbar-item">
+            Experiência Profissional
+          </li>
+        </a>
+        <a href="#projects">
+          <li className="leftbar-item">
+            Projetos
+          </li>
+        </a>
+        <a href="#productions">
+          <li className="leftbar-item">
+            Produções
+          </li>
+        </a>
       </div>
     </div>
   );
