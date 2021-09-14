@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import '../../global.css';
 import './User.css';
@@ -7,14 +7,18 @@ import TopBar from '../../components/TopBar/TopBar';
 import Footer from '../../components/Footer/Footer';
 import LeftBar from '../../components/LeftBar/LeftBar';
 import { Education, Professional, Production, Project } from '../../components/UserSection/Section';
+import { UserForm } from '../../components/ModalForm/ModalForm';
 
 function User() {
+  const [userModal, setUserModal] = useState(false);
+
   return (
     <>
       <TopBar />
       <div className="user-container">
         <LeftBar />
         <div className="user-content">
+          <UserForm />
           <div className="user-header">
             <div className="user-header-left">
               <img src="https://github.com/V.png" alt="" />
@@ -37,6 +41,7 @@ function User() {
               </span>
             </div>
           </div>
+          <button onClick={() => setUserModal(!userModal)}>Modal</button>
           <hr />
           <div className="user-section-content">
             <span id="education" className="user-section-title">Educação Acadêmica</span>
