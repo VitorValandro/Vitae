@@ -64,12 +64,14 @@
   padding: 10px;
   border: 1px solid var(--light-grey);
   border-radius: 10px;
+  font-family: inherit;
 }
 
 .modal-form-input-textarea{
   text-align: start;
   height: 100px;
   resize: none;
+  font-family: inherit;
 }
 
 .modal-form-buttons{
@@ -93,6 +95,13 @@
 .modal-form-buttons > button:hover{
   color: white;
   background-color: var(--main-bg-color);
+}
+
+.modal-form-error-message{
+  font-weight: 500;
+  color: var(--details);
+  margin: 10px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 900px){

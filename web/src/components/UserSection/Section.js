@@ -48,13 +48,6 @@ function Production(){
       </span>
       <ul className="user-subsection-info">
         <li><b>Tipo: </b>Artigo</li>
-        <li>
-          <b>Autores: </b>
-          <ul className="user-subsection-list">
-            <li>Tiago Mazzutti</li>
-            <li>Mateus Pelloso</li>
-          </ul>
-        </li>
       </ul>
       <b>2020</b>
     </div>
@@ -71,13 +64,6 @@ function Project(){
       </span>
       <ul className="user-subsection-info">
         <li><b>Situação: </b>Concluído</li>
-        <li>
-          <b>Membros: </b>
-          <ul className="user-subsection-list">
-            <li>Tiago Mazzutti</li>
-            <li>Mateus Pelloso</li>
-          </ul>
-        </li>
         <li><b><a href="www.google.com">Mais informações</a></b></li>
       </ul>
       <b>2021-11-21/2022-01-01</b>

@@ -7,7 +7,7 @@ import TopBar from '../../components/TopBar/TopBar';
 import Footer from '../../components/Footer/Footer';
 import LeftBar from '../../components/LeftBar/LeftBar';
 import { Education, Professional, Production, Project } from '../../components/UserSection/Section';
-import { UserForm, EducationForm } from '../../components/ModalForm/ModalForm';
+import { UserForm, EducationForm, ProfessionalForm, ProductionForm, ProjectForm } from '../../components/ModalForm/ModalForm';
 
 function User() {
   const [userFormModal, setUserFormModal] = useState(false);
@@ -122,9 +122,9 @@ function User() {
       <Footer />
       {userFormModal && (<UserForm stateSetter={setUserFormModal} />)}
       {educationFormModal && (<EducationForm stateSetter={setEducationFormModal} />)}
-      {professionalFormModal && (<UserForm stateSetter={setUserFormModal} />)}
-      {productionFormModal && (<UserForm stateSetter={setUserFormModal} />)}
-      {projectFormModal && (<UserForm stateSetter={setUserFormModal} />)}
+      {professionalFormModal && (<ProfessionalForm stateSetter={setProfessionalFormModal} />)}
+      {productionFormModal && (<ProductionForm stateSetter={setProductionFormModal} />)}
+      {projectFormModal && (<ProjectForm stateSetter={setProjectFormModal} />)}
     </>
   );
 }
