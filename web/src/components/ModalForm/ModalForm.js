@@ -2,13 +2,13 @@ import React from 'react';
 
 import Modal from '../../components/Modal/Modal';
 
-function UserForm(){
+function UserForm({ stateSetter }){
   return(
     <Modal>
       <span className="modal-form-title">Alterar informações de usuário</span>
       <form className="modal-form">
         <div className="modal-form-fieldset">
-          <label className="modal-form-label" for="name">Nome</label>
+          <label className="modal-form-label" htmlFor="name">Nome</label>
           <input
             className="modal-form-input"
             name="name"
@@ -17,7 +17,7 @@ function UserForm(){
           />
         </div>
         <div className="modal-form-fieldset">
-          <label className="modal-form-label" for="subtitle">Subtítulo</label>
+          <label className="modal-form-label" htmlFor="subtitle">Subtítulo</label>
           <input
             className="modal-form-input"
             name="subtitle"
@@ -26,7 +26,7 @@ function UserForm(){
           />
         </div>
         <div className="modal-form-fieldset">
-          <label className="modal-form-label" for="abstract">Resumo</label>
+          <label className="modal-form-label" htmlFor="abstract">Resumo</label>
           <textarea
             className="modal-form-input modal-form-input-textarea"
             name="abstract"
@@ -35,7 +35,7 @@ function UserForm(){
           />
         </div>
         <div className="modal-form-fieldset">
-          <label className="modal-form-label" for="email">E-mail</label>
+          <label className="modal-form-label" htmlFor="email">E-mail</label>
           <input
             className="modal-form-input"
             name="email"
@@ -44,7 +44,7 @@ function UserForm(){
           />
         </div>
         <div className="modal-form-fieldset">
-          <label className="modal-form-label" for="phone">Telefone</label>
+          <label className="modal-form-label" htmlFor="phone">Telefone</label>
           <input
             className="modal-form-input"
             name="phone"
@@ -54,7 +54,12 @@ function UserForm(){
         </div>
         <div className="modal-form-buttons">
           <button>Salvar</button>
-          <button>Cancelar</button>
+          <button onClick={(event) => {
+            event.preventDefault();
+            stateSetter();
+          }}>
+            Cancelar
+          </button>
         </div>
       </form>
     </Modal>

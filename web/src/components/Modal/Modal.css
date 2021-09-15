@@ -78,11 +78,31 @@
 }
 
 .modal-form-buttons > button{
-  border:0;
+  font-family: inherit;
+  font-weight: 500;
   border-radius: 5px;
   padding: 10px;
-  background-color: var(--main-bg-color);
-  color: white;
+  border: 2px solid var(--main-bg-color);
+  color: var(--main-bg-color);
   cursor: pointer;
+  transition: all .2s;
   width: 100px;
+}
+
+.modal-form-buttons > button:hover{
+  color: white;
+  background-color: var(--main-bg-color);
+}
+
+@media (max-width: 900px){
+  .modal-content{
+    width: 90%;
+  }
+  .modal-form-fieldset{
+    width: 90%;
+  }
+  .modal-form-buttons{
+    margin-top: 5%;
+    width: 80%;
+  }
 }

@@ -10,7 +10,7 @@ import { Education, Professional, Production, Project } from '../../components/U
 import { UserForm } from '../../components/ModalForm/ModalForm';
 
 function User() {
-  const [userModal, setUserModal] = useState(false);
+  const [userFormModal, setUserFormModal] = useState(false);
 
   return (
     <>
@@ -18,7 +18,7 @@ function User() {
       <div className="user-container">
         <LeftBar />
         <div className="user-content">
-          <UserForm />
+          {userFormModal && (<UserForm stateSetter={setUserFormModal} />)}
           <div className="user-header">
             <div className="user-header-left">
               <img src="https://github.com/V.png" alt="" />
@@ -41,7 +41,14 @@ function User() {
               </span>
             </div>
           </div>
-          <button onClick={() => setUserModal(!userModal)}>Modal</button>
+          <div className="user-info-button">
+            <button
+              className="change-info-button"
+              onClick={() => setUserFormModal(!userFormModal)}
+            >
+              Atualizar informações
+            </button>
+          </div>
           <hr />
           <div className="user-section-content">
             <span id="education" className="user-section-title">Educação Acadêmica</span>
