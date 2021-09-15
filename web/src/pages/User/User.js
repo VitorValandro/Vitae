@@ -7,10 +7,14 @@ import TopBar from '../../components/TopBar/TopBar';
 import Footer from '../../components/Footer/Footer';
 import LeftBar from '../../components/LeftBar/LeftBar';
 import { Education, Professional, Production, Project } from '../../components/UserSection/Section';
-import { UserForm } from '../../components/ModalForm/ModalForm';
+import { UserForm, EducationForm } from '../../components/ModalForm/ModalForm';
 
 function User() {
   const [userFormModal, setUserFormModal] = useState(false);
+  const [educationFormModal, setEducationFormModal] = useState(false);
+  const [professionalFormModal, setProfessionalFormModal] = useState(false);
+  const [productionFormModal, setProductionFormModal] = useState(false);
+  const [projectFormModal, setProjectFormModal] = useState(false);
 
   return (
     <>
@@ -18,7 +22,6 @@ function User() {
       <div className="user-container">
         <LeftBar />
         <div className="user-content">
-          {userFormModal && (<UserForm stateSetter={setUserFormModal} />)}
           <div className="user-header">
             <div className="user-header-left">
               <img src="https://github.com/V.png" alt="" />
@@ -51,7 +54,15 @@ function User() {
           </div>
           <hr />
           <div className="user-section-content">
-            <span id="education" className="user-section-title">Educação Acadêmica</span>
+            <div className="user-section-header">
+              <span id="education" className="user-section-title">Educação Acadêmica</span>
+              <button
+                className="change-info-button"
+                onClick={() => setEducationFormModal(!educationFormModal)}
+              >
+                Adicionar
+              </button>
+            </div>
             <Education />
             <Education />
             <Education />
@@ -59,7 +70,15 @@ function User() {
           </div>
           <hr />
           <div className="user-section-content">
-            <span id="professional" className="user-section-title">Experiência Profissional</span>
+            <div className="user-section-header">
+              <span id="professional" className="user-section-title">Experiência Profissional</span>
+              <button
+                className="change-info-button"
+                onClick={() => setProfessionalFormModal(!professionalFormModal)}
+              >
+                Adicionar
+              </button>
+            </div>
             <Professional />
             <Professional />
             <Professional />
@@ -67,7 +86,15 @@ function User() {
           </div>
           <hr />
           <div className="user-section-content">
-            <span id="productions" className="user-section-title">Produções</span>
+            <div className="user-section-header">
+              <span id="productions" className="user-section-title">Produções</span>
+              <button
+                className="change-info-button"
+                onClick={() => setProductionFormModal(!productionFormModal)}
+              >
+                Adicionar
+              </button>
+            </div>
             <Production />
             <Production />
             <Production />
@@ -75,7 +102,15 @@ function User() {
           </div>
           <hr />
           <div className="user-section-content">
-            <span id="projects" className="user-section-title">Projetos</span>
+            <div className="user-section-header">
+              <span id="projects" className="user-section-title">Projetos</span>
+              <button
+                className="change-info-button"
+                onClick={() => setProjectFormModal(!projectFormModal)}
+              >
+                Adicionar
+              </button>
+            </div>
             <Project />
             <Project />
             <Project />
@@ -85,6 +120,11 @@ function User() {
         </div>
       </div>
       <Footer />
+      {userFormModal && (<UserForm stateSetter={setUserFormModal} />)}
+      {educationFormModal && (<EducationForm stateSetter={setEducationFormModal} />)}
+      {professionalFormModal && (<UserForm stateSetter={setUserFormModal} />)}
+      {productionFormModal && (<UserForm stateSetter={setUserFormModal} />)}
+      {projectFormModal && (<UserForm stateSetter={setUserFormModal} />)}
     </>
   );
 }
