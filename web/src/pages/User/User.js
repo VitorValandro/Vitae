@@ -7,7 +7,12 @@ import TopBar from '../../components/TopBar/TopBar';
 import Footer from '../../components/Footer/Footer';
 import LeftBar from '../../components/LeftBar/LeftBar';
 import { Education, Professional, Production, Project } from '../../components/UserSection/Section';
-import { UserForm, EducationForm, ProfessionalForm, ProductionForm, ProjectForm } from '../../components/ModalForm/ModalForm';
+
+import UserForm from '../../components/ModalForm/UserForm';
+import EducationForm from '../../components/ModalForm/EducationForm';
+import ProfessionalForm from '../../components/ModalForm/ProfessionalForm';
+import ProductionForm from '../../components/ModalForm/ProductionForm';
+import ProjectForm from '../../components/ModalForm/ProjectForm';
 
 function User() {
   const [userFormModal, setUserFormModal] = useState(false);
