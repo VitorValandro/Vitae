@@ -1,8 +1,10 @@
 from flask import Flask
 from flask.json import jsonify
 from flask_restful import Api
+from flask_cors import CORS
 
 from database import db, config_database_path
+from config import CLIENT_ORIGIN
 from models.User import User
 from models.Education import Education
 from models.Professional import Professional
@@ -14,6 +16,7 @@ from resources.UserAuth import UserAuth
 from resources.Info import Info
 
 app = Flask(__name__)
+CORS(app, resources={"/*": {"origins":CLIENT_ORIGIN}})
 
 config_database_path(app)
 db.app = app
