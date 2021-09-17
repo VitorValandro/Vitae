@@ -35,7 +35,6 @@ function User() {
     await api.get(`/user/${userId}`)
       .then((response) => {
         setUserInfo(response.data);
-        console.log(response.data);
       })
   }
 
@@ -158,7 +157,7 @@ function User() {
       </div>
       <Footer />
       {userFormModal && (<UserForm stateSetter={setUserFormModal} />)}
-      {educationFormModal && (<EducationForm stateSetter={setEducationFormModal} />)}
+      {educationFormModal && (<EducationForm stateSetter={setEducationFormModal} user={userId} />)}
       {professionalFormModal && (<ProfessionalForm stateSetter={setProfessionalFormModal} />)}
       {productionFormModal && (<ProductionForm stateSetter={setProductionFormModal} />)}
       {projectFormModal && (<ProjectForm stateSetter={setProjectFormModal} />)}

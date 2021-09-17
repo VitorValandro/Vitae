@@ -1,8 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import api from '../../services/api';
 
 import Modal from '../Modal/Modal';
 
-function EducationForm({ stateSetter }) {
+function EducationForm({ stateSetter, user }) {
+  const [name, setName] = useState('');
+  const [institution, setInstitution] = useState('');
+  const [description, setDescription] = useState('');
+  const [grade, setGrade] = useState('Técnico');
+  const [workload, setWorkload] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [submitValidationMsg, setSubmitValidationMsg] = useState('');
+
+  async function handleSubmit(event){
+    event.preventDefault();
+
+    const DATA = {
+      "name": name,
+      "institution": institution,
+      "workload": workload,
+      "grade": grade,
+      "start_date": startDate,
+      "end_date": endDate,
+      "user_id": Number(user)
+    }
+    
+    await api.post(`/user/${user}/info/education/0`, DATA)
+      .then((response) => {
+        alert('Dados salvos com sucesso')
+        stateSetter();
+      })
+      .catch((err) => {
+        if (err.response.data) {
+          const { error } = err.response.data;
+          setSubmitValidationMsg(error);
+        }
+        else {
+          setSubmitValidationMsg('Um erro ocorreu ao salvar as informações');
+        }
+      })
+  }
+
   return (
     <Modal>
       <span className="modal-form-title">Adicionar novo curso</span>
@@ -15,6 +54,8 @@ function EducationForm({ stateSetter }) {
             autoComplete="off"
             type="text"
             placeholder="Técnico em Informática para Internet"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
             required
           />
         </div>
@@ -26,6 +67,8 @@ function EducationForm({ stateSetter }) {
             autoComplete="off"
             type="text"
             placeholder="Instituto Federal Catarinense"
+            value={institution}
+            onChange={(event) => setInstitution(event.target.value)}
             required
           />
         </div>
@@ -37,11 +80,18 @@ function EducationForm({ stateSetter }) {
             autoComplete="off"
             placeholder="Descreva o que você aprendeu nesse curso..."
             maxLength="500"
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
           />
         </div>
         <div className="modal-form-fieldset">
           <label className="modal-form-label" htmlFor="grade">Grau</label>
-          <select name="grade" className="modal-form-input">
+          <select 
+            name="grade" 
+            className="modal-form-input"
+            value={grade}
+            onChange={(event) => setGrade(event.target.value)}
+          >
             <option value="Técnico">Técnico</option>
             <option value="Graduação">Graduação</option>
             <option value="Especialização">Especialização</option>
@@ -58,6 +108,8 @@ function EducationForm({ stateSetter }) {
             autoComplete="off"
             type="number"
             placeholder="40"
+            value={workload}
+            onChange={(event) => setWorkload(event.target.value)}
             required
           />
         </div>
@@ -68,6 +120,8 @@ function EducationForm({ stateSetter }) {
             name="start_date"
             autoComplete="off"
             type="date"
+            value={startDate}
+            onChange={(event) => setStartDate(event.target.value)}
             required
           />
         </div>
@@ -78,12 +132,14 @@ function EducationForm({ stateSetter }) {
             name="end_date"
             autoComplete="off"
             type="date"
+            value={endDate}
+            onChange={(event) => setEndDate(event.target.value)}
             required
           />
         </div>
-        <span className="modal-form-error-message">Este e-mail já existe</span>
+        {submitValidationMsg && <span className="modal-form-error-message">{submitValidationMsg}</span>}
         <div className="modal-form-buttons">
-          <button>Salvar</button>
+          <button onClick={handleSubmit}>Salvar</button>
           <button onClick={(event) => {
             /* IMPLEMENTAR: limpar dados do formulário antes de fechar */
             event.preventDefault();
