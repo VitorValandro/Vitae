@@ -1,8 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import api from '../../services/api';
 import Modal from '../Modal/Modal';
 
-function ProfessionalForm({ stateSetter }) {
+function ProfessionalForm({ stateSetter, user }) {
+  const [company, setCompany] = useState('');
+  const [role, setRole] = useState('');
+  const [workload, setWorkload] = useState('');
+  const [description, setDescription] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [submitValidationMsg, setSubmitValidationMsg] = useState('');
+
+  async function handleSubmit(event){
+    event.preventDefault();
+
+    const DATA = {
+      "role":role,
+      "company":company,
+      "workload":workload,
+      "description":description,
+      "start_date":startDate,
+      "end_date":endDate,
+      "user_id": Number(user)
+    }
+
+    await api.post(`/user/${user}/info/professional/0`, DATA)
+      .then((response) => {
+        alert('Dados salvos com sucesso')
+        stateSetter();
+      })
+      .catch((err) => {
+        if (err.response.data) {
+          const { error } = err.response.data;
+          setSubmitValidationMsg(error);
+        }
+        else {
+          setSubmitValidationMsg('Um erro ocorreu ao salvar as informações');
+        }
+      })
+  }
+
   return (
     <Modal>
       <span className="modal-form-title">Adicionar nova experiência profissional</span>
@@ -15,6 +53,8 @@ function ProfessionalForm({ stateSetter }) {
             autoComplete="off"
             type="text"
             placeholder="Vitae Software LTDA"
+            value={company}
+            onChange={(event) => setCompany(event.target.value)}
             required
           />
         </div>
@@ -26,6 +66,8 @@ function ProfessionalForm({ stateSetter }) {
             autoComplete="off"
             type="text"
             placeholder="Desenvolvedor de Software"
+            value={role}
+            onChange={(event) => setRole(event.target.value)}
             required
           />
         </div>
@@ -37,6 +79,8 @@ function ProfessionalForm({ stateSetter }) {
             autoComplete="off"
             placeholder="Descreva suas atividades enquanto estava neste emprego..."
             maxLength="500"
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
           />
         </div>
         <div className="modal-form-fieldset">
@@ -47,6 +91,8 @@ function ProfessionalForm({ stateSetter }) {
             autoComplete="off"
             type="number"
             placeholder="40"
+            value={workload}
+            onChange={(event) => setWorkload(event.target.value)}
             required
           />
         </div>
@@ -57,6 +103,8 @@ function ProfessionalForm({ stateSetter }) {
             name="start_date"
             autoComplete="off"
             type="date"
+            value={startDate}
+            onChange={(event) => setStartDate(event.target.value)}
             required
           />
         </div>
@@ -67,12 +115,14 @@ function ProfessionalForm({ stateSetter }) {
             name="end_date"
             autoComplete="off"
             type="date"
+            value={endDate}
+            onChange={(event) => setEndDate(event.target.value)}
             required
           />
         </div>
-        <span className="modal-form-error-message">Este e-mail já existe</span>
+        {submitValidationMsg && <span className="modal-form-error-message">{submitValidationMsg}</span>}
         <div className="modal-form-buttons">
-          <button>Salvar</button>
+          <button onClick={handleSubmit}>Salvar</button>
           <button onClick={(event) => {
             /* IMPLEMENTAR: limpar dados do formulário antes de fechar */
             event.preventDefault();
