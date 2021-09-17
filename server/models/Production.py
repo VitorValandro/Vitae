@@ -1,13 +1,13 @@
 from models import ma
 from models import db
 from utils.date import check_published_year
+from utils.null import verifyIsNull
 
 class Production(db.Model):
-  def __init__(self, name, nature, type, authors, date_year, published_on, description, user_id):
+  def __init__(self, name, nature, type, date_year, published_on, description, user_id):
     self.name = name
     self.nature = nature
     self.type = type
-    self.authors = authors
     self.published_on = published_on
     self.description = description
     self.date_year = date_year
@@ -20,7 +20,6 @@ class Production(db.Model):
   type = db.Column(db.String(32), nullable=False)
   published_on = db.Column(db.String(128), nullable=True)
   description = db.Column(db.String(128), nullable=True)
-  authors = db.Column(db.String(300), nullable=False)
   date_year = db.Column(db.String(4), nullable=False)
 
   user_id = db.Column(db.Integer, db.ForeignKey(
@@ -30,10 +29,11 @@ class Production(db.Model):
 class ProductionSchema(ma.Schema):
   def sanitize_data(self, instance: Production):
     check_published_year(instance)
+    verifyIsNull([instance.name, instance.nature, instance.published_on])
 
   class Meta:
     fields = ('id', 'name', 'nature', 'type',
-              'description', 'published_on', 'authors', 'date_year', 'user_id')
+              'description', 'published_on', 'date_year', 'user_id')
 
 # Esquema para usuário individual
 production_schema = ProductionSchema()

@@ -159,7 +159,7 @@ function User() {
       {userFormModal && (<UserForm stateSetter={setUserFormModal} />)}
       {educationFormModal && (<EducationForm stateSetter={setEducationFormModal} user={userId} />)}
       {professionalFormModal && (<ProfessionalForm stateSetter={setProfessionalFormModal} />)}
-      {productionFormModal && (<ProductionForm stateSetter={setProductionFormModal} />)}
+      {productionFormModal && (<ProductionForm stateSetter={setProductionFormModal} user={userId} />)}
       {projectFormModal && (<ProjectForm stateSetter={setProjectFormModal} />)}
     </>
   );

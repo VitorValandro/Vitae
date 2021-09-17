@@ -1,4 +1,3 @@
-from flask import jsonify, make_response
 from models import ma
 from models import db
 from utils.date import date_converter
