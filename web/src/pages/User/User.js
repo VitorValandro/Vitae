@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 
 import '../../global.css';
 import './User.css';
+
+import { getUserThatIsAuthenticated, isAuthenticated } from '../../services/auth';
+import api from '../../services/api';
+
 
 import TopBar from '../../components/TopBar/TopBar';
 import Footer from '../../components/Footer/Footer';
@@ -15,11 +20,24 @@ import ProductionForm from '../../components/ModalForm/ProductionForm';
 import ProjectForm from '../../components/ModalForm/ProjectForm';
 
 function User() {
+  const [userInfo, setUserInfo] = useState({});
   const [userFormModal, setUserFormModal] = useState(false);
   const [educationFormModal, setEducationFormModal] = useState(false);
   const [professionalFormModal, setProfessionalFormModal] = useState(false);
   const [productionFormModal, setProductionFormModal] = useState(false);
   const [projectFormModal, setProjectFormModal] = useState(false);
+
+  const { userId } = useParams();
+
+  useEffect(() => getUserInfo(), []);
+
+  async function getUserInfo(){
+    await api.get(`/user/${userId}`)
+      .then((response) => {
+        setUserInfo(response.data);
+        console.log(response.data);
+      })
+  }
 
   return (
     <>
@@ -31,12 +49,12 @@ function User() {
             <div className="user-header-left">
               <img src="https://github.com/V.png" alt="" />
               <div>
-                <span className="user-info-subtitle"><b>Email: </b>vitormateusd@gmail.com</span><br />
-                <span className="user-info-subtitle"><b>Telefone: </b>+55 (49) 998136787</span>
+                <span className="user-info-subtitle"><b>Email: </b>{userInfo.email}</span><br />
+                <span className="user-info-subtitle"><b>Telefone: </b>{userInfo.phone}</span>
               </div>
             </div>
             <div className="user-header-right">
-              <span className="user-info-title">Vitor Matheus Valandro da Rosa</span>
+              <span className="user-info-title">{userInfo.username}</span>
               <span className="user-info-subtitle">Professor Doutor Alcione Talaska</span>
               <span className="user-info-description">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -50,76 +68,90 @@ function User() {
             </div>
           </div>
           <div className="user-info-button">
-            <button
-              className="change-info-button"
-              onClick={() => setUserFormModal(!userFormModal)}
-            >
-              Atualizar informações
-            </button>
+            {(isAuthenticated() && userInfo.username === getUserThatIsAuthenticated()) && (
+              <button
+                className="change-info-button"
+                onClick={() => setUserFormModal(!userFormModal)}
+              >
+                Atualizar informações
+              </button>
+            )}
           </div>
           <hr />
           <div className="user-section-content">
             <div className="user-section-header">
               <span id="education" className="user-section-title">Educação Acadêmica</span>
-              <button
-                className="change-info-button"
-                onClick={() => setEducationFormModal(!educationFormModal)}
-              >
-                Adicionar
-              </button>
+              {(isAuthenticated() && userInfo.username === getUserThatIsAuthenticated()) && (
+                <button
+                  className="change-info-button"
+                  onClick={() => setEducationFormModal(!educationFormModal)}
+                >
+                  Adicionar
+                </button>
+              )}
             </div>
-            <Education />
-            <Education />
-            <Education />
-            <Education />
+            {
+              userInfo.education && userInfo.education.length !== 0
+                ? userInfo.education.map(section =>(<Education data={section} />))
+                : (<span className="user-section-null">Não há nenhuma informação aqui</span>)
+            }
           </div>
           <hr />
           <div className="user-section-content">
             <div className="user-section-header">
               <span id="professional" className="user-section-title">Experiência Profissional</span>
-              <button
-                className="change-info-button"
-                onClick={() => setProfessionalFormModal(!professionalFormModal)}
-              >
-                Adicionar
-              </button>
+              {(isAuthenticated() && userInfo.username === getUserThatIsAuthenticated()) && (
+                <button
+                  className="change-info-button"
+                  onClick={() => setProfessionalFormModal(!professionalFormModal)}
+                >
+                  Adicionar
+                </button>
+              )}
             </div>
-            <Professional />
-            <Professional />
-            <Professional />
-            <Professional />
+            {
+              userInfo.professional && userInfo.professional.length !== 0
+                ? userInfo.professional.map(section => (<Professional data={section} />))
+                : (<span className="user-section-null">Não há nenhuma informação aqui</span>)
+            }
           </div>
           <hr />
           <div className="user-section-content">
             <div className="user-section-header">
               <span id="productions" className="user-section-title">Produções</span>
-              <button
-                className="change-info-button"
-                onClick={() => setProductionFormModal(!productionFormModal)}
-              >
-                Adicionar
-              </button>
+              {(isAuthenticated() && userInfo.username === getUserThatIsAuthenticated()) && (
+                <button
+                  className="change-info-button"
+                  onClick={() => setProductionFormModal(!productionFormModal)}
+                >
+                  Adicionar
+                </button>
+              )}
             </div>
-            <Production />
-            <Production />
-            <Production />
-            <Production />
+            {
+              userInfo.production && userInfo.production.length !== 0
+                ? userInfo.production.map(section => (<Production data={section} />))
+                : (<span className="user-section-null">Não há nenhuma informação aqui</span>)
+            }
           </div>
           <hr />
           <div className="user-section-content">
             <div className="user-section-header">
               <span id="projects" className="user-section-title">Projetos</span>
-              <button
-                className="change-info-button"
-                onClick={() => setProjectFormModal(!projectFormModal)}
-              >
-                Adicionar
-              </button>
+              {(isAuthenticated() && userInfo.username === getUserThatIsAuthenticated()) && (
+                <button
+                  className="change-info-button"
+                  onClick={() => setProjectFormModal(!projectFormModal)}
+                >
+                  Adicionar
+                </button>
+              )}
             </div>
-            <Project />
-            <Project />
-            <Project />
-            <Project />
+            {
+              userInfo.projects && userInfo.projects.length !== 0
+                ? userInfo.projects.map(section => (<Project data={section} />))
+                : (<span className="user-section-null">Não há nenhuma informação aqui</span>)
+            }
           </div>
           <hr />
         </div>

@@ -33,7 +33,7 @@
 
 .submit-message{
   margin-top: 10px;
-  color: black;
+  color: var(--details);
 }
 
 .form-button:hover{

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import './UserCard.css'
 
-function UserCard() {
+function UserCard({ data }) {
   const [width, setWidth] = useState(window.innerWidth);
   const widthBreakpoint = 900;
 
@@ -15,11 +16,11 @@ function UserCard() {
   }, []);
 
   return (
-    width < widthBreakpoint ? <UserCardMobile /> : <UserCardDesktop />
+    width < widthBreakpoint ? <UserCardMobile /> : <UserCardDesktop data={data} />
   );
 }
 
-function UserCardDesktop() {
+function UserCardDesktop({ data }) {
   return (
     <div className="usercard-info-container">
       <div className="usercard-info-left">
@@ -32,10 +33,12 @@ function UserCardDesktop() {
       <div className="usercard-info-right">
         <div className="usercard-info-header">
           <div>
-            <span className="usercard-info-title">Vitor Matheus Valandro da Rosa</span>
+            <span className="usercard-info-title">{data.username}</span>
             <span className="usercard-info-subtitle">Professor Doutor Alcione Talaska</span>
           </div>
-          <span className="usercard-info-link">Perfil completo</span>
+          <Link to={`usuario/${data.id}`}>
+            <span className="usercard-info-link">Perfil completo</span>
+          </Link>
         </div>
         <span className="usercard-info-description">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.

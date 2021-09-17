@@ -1,4 +1,7 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
+
+import api from '../../services/api';
+import { login } from '../../services/auth';
 
 import './AuthForm.css';
 
@@ -20,12 +23,51 @@ function AuthForm({ register }) {
       setSubmitValidationMsg("O número de telefone deve respeitar o formato +55 (49) 94321-5678");
       return;
     }
-    console.log('alo');
+
+    const DATA = {
+      "username":username,
+      "email":email,
+      "password":password,
+      "phone":phone
+    }
+
+    api.post('/user/0', DATA)
+      .then((response) => {
+        /* IMPLEMENTAR DIRECT LOGIN E REDIRECIONAMENTO */
+        console.log(response);
+      })
+      .catch((err) => {
+        if (err.response.data) {
+          const { error } = err.response.data
+          setSubmitValidationMsg(error);
+        }
+        else {
+          setSubmitValidationMsg('Um erro ocorreu ao registrar o time');
+        }
+      })
   }
 
   function handleUserLogin(event){
     event.preventDefault();
-    console.log('alo');
+
+    const DATA = {
+      "username": username,
+      "password": password,
+    }
+
+    api.post('/user/auth', DATA)
+      .then((response) => {
+        login(response.data.token, DATA["username"]);
+      })
+      .catch((err) => {
+        if (err.response.data) {
+          const { error } = err.response.data
+          setSubmitValidationMsg(error);
+        }
+        else {
+          setSubmitValidationMsg('Um erro ocorreu ao logar');
+        }
+      })
   }
 
   return (
