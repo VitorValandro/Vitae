@@ -1,7 +1,6 @@
 from models import ma
 from models import db
-from utils.date import date_converter
-from utils.null import verifyIsNull
+from utils.form_validation import check_published_year, verifyIsNull
 
 class Education(db.Model):
   def __init__(self, name, institution, start_date, end_date, workload, grade, user_id):

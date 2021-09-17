@@ -1,7 +1,6 @@
 from models import ma
 from models import db
-from utils.date import check_published_year
-from utils.null import verifyIsNull
+from utils.form_validation import check_published_year, verifyIsNull
 
 class Production(db.Model):
   def __init__(self, name, nature, type, date_year, published_on, description, user_id):

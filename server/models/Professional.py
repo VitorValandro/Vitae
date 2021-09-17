@@ -1,6 +1,6 @@
 from models import ma
 from models import db
-from utils.date import date_converter
+from utils.form_validation import check_published_year, verifyIsNull
 
 class Professional(db.Model):
   def __init__(self, role, company, workload, description, start_date, end_date, user_id):
@@ -28,6 +28,7 @@ class Professional(db.Model):
 class ProfessionalSchema(ma.Schema):
   def sanitize_data(self, instance: Professional):
     date_converter(instance)
+    verifyIsNull([instance.role, instance.company])
 
   class Meta:
     fields = ('id', 'role', 'company', 'workload',

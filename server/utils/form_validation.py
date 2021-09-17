@@ -31,3 +31,9 @@ def check_published_year(instance):
 
   if int(year) <= 1900 or int(year) >= 2100:
     raise ValueError('O valor das datas deve ser entre 1901 e 2099')
+
+def verifyIsNull(properties):
+  for prop in properties:
+    if not prop or prop == '':
+      raise ValueError("Todos os valores obrigatórios devem ser informados.")
+  return False
