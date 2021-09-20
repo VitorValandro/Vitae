@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 
 import '../../global.css';
 import './User.css';
 
-import { getUserThatIsAuthenticated, isAuthenticated } from '../../services/auth';
+import { getUserThatIsAuthenticated, isAuthenticated, logout } from '../../services/auth';
 import api from '../../services/api';
 
 
@@ -28,6 +28,7 @@ function User() {
   const [projectFormModal, setProjectFormModal] = useState(false);
 
   const { userId } = useParams();
+  const history = useHistory();
 
   useEffect(() => getUserInfo(), []);
 
@@ -44,6 +45,16 @@ function User() {
       <div className="user-container">
         <LeftBar />
         <div className="user-content">
+          <div className="user-info-button">
+            {(isAuthenticated() && userInfo.username === getUserThatIsAuthenticated()) && (
+              <button
+                className="user-logout-button"
+                onClick={() => {logout(); history.push('/')}}
+              >
+                SAIR
+              </button>
+            )}
+          </div>
           <div className="user-header">
             <div className="user-header-left">
               <img src="https://github.com/V.png" alt="" />
@@ -54,15 +65,9 @@ function User() {
             </div>
             <div className="user-header-right">
               <span className="user-info-title">{userInfo.username}</span>
-              <span className="user-info-subtitle">Professor Doutor Alcione Talaska</span>
+              <span className="user-info-subtitle">{userInfo.subtitle}</span>
               <span className="user-info-description">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                like Aldus PageMaker including versions of Lorem Ipsum.
+                {userInfo.abstract}
               </span>
             </div>
           </div>
@@ -156,7 +161,7 @@ function User() {
         </div>
       </div>
       <Footer />
-      {userFormModal && (<UserForm stateSetter={setUserFormModal} />)}
+      {userFormModal && (<UserForm stateSetter={setUserFormModal} user={userId}/>)}
       {educationFormModal && (<EducationForm stateSetter={setEducationFormModal} user={userId} />)}
       {professionalFormModal && (<ProfessionalForm stateSetter={setProfessionalFormModal} user={userId} />)}
       {productionFormModal && (<ProductionForm stateSetter={setProductionFormModal} user={userId} />)}

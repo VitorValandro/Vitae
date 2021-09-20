@@ -110,6 +110,15 @@ hr {
   background-color: var(--main-bg-color);
 }
 
+.user-logout-button{
+  border-radius: 5px;
+  padding: 10px 30px;
+  border: 2px solid var(--details);
+  color: var(--details);
+  cursor: pointer;
+  transition: all .2s;
+}
+
 @media (max-width: 900px){
   .user-content{
     width: 90%;

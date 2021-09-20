@@ -50,21 +50,15 @@ class UserRoute(Resource):
   def put(self, user_id, user_authenticated):
     # Atualiza informações da tabela <user>
     data = request.get_json()
- 
+
     if not user_id == user_authenticated.id:
       return make_response(jsonify({"error":"Usuário sem permissão para atualizar os dados desse usuário."}), 401)
     
-    if user_exists(data["username"]):
-      return make_response(jsonify({"error":"Já existe um usuário com esse nome"}), 400)
-    
-    if User.query.filter_by(email = data["email"]).first() is not None:
-      return make_response(jsonify({"error":"Já existe um usuário com esse email"}), 400)
-    
     try:
       user = User.query.get(user_id)
-      user.username = data["username"]
-      user.email = data["email"]
       user.phone = data["phone"]
+      user.abstract = data["abstract"]
+      user.subtitle = data["subtitle"]
       db.session.commit()
       JSONresponse = user_schema.dump(user)
       return make_response(jsonify(JSONresponse), 201)
@@ -90,7 +84,7 @@ class UserList(Resource):
   # Retorna uma lista com o nome de todos os usuários
   def get(self):
     try:
-      users = User.query.with_entities(User.username, User.id).all()
+      users = User.query.with_entities(User.username, User.abstract, User.subtitle, User.id).all()
       JSONresponse = users_schema.dump(users)
       return make_response(jsonify(JSONresponse), 201)
     except:

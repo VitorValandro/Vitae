@@ -1,6 +1,6 @@
 from models import ma
 from models import db
-from utils.form_validation import check_published_year, verifyIsNull
+from utils.form_validation import date_converter, verifyIsNull
 
 class Professional(db.Model):
   def __init__(self, role, company, workload, description, start_date, end_date, user_id):

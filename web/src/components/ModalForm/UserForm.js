@@ -1,21 +1,44 @@
-import React  from 'react';
+import React, {useState}  from 'react';
 
+import api from '../../services/api';
 import Modal from '../Modal/Modal';
 
-function UserForm({ stateSetter }){
+function UserForm({ stateSetter, data, user }){
+  const [subtitle, setSubtitle] = useState('');
+  const [abstract, setAbstract] = useState('');
+  const [phone, setPhone] = useState('');
+  const [submitValidationMsg, setSubmitValidationMsg] = useState('');
+
+  async function handleSubmit(event){
+    event.preventDefault();
+
+    const DATA = {
+      "subtitle":subtitle,
+      "abstract":abstract,
+      "phone":phone
+    }
+
+    await api.put(`/user/${user}`, DATA)
+      .then((response) => {
+        alert('Dados salvos com sucesso')
+        stateSetter();
+      })
+      .catch((err) => {
+        console.log(err)
+        if (err.response.data) {
+          const { error } = err.response.data;
+          setSubmitValidationMsg(error);
+        }
+        else {
+          setSubmitValidationMsg('Um erro ocorreu ao salvar as informações');
+        }
+      })
+  }
+
   return(
     <Modal>
       <span className="modal-form-title">Alterar informações de usuário</span>
       <form className="modal-form">
-        <div className="modal-form-fieldset">
-          <label className="modal-form-label" htmlFor="name">Nome</label>
-          <input
-            className="modal-form-input"
-            name="name"
-            autoComplete="off"
-            type="text"
-          />
-        </div>
         <div className="modal-form-fieldset">
           <label className="modal-form-label" htmlFor="subtitle">Subtítulo</label>
           <input
@@ -23,6 +46,8 @@ function UserForm({ stateSetter }){
             name="subtitle"
             autoComplete="off"
             type="text"
+            value={subtitle}
+            onChange={(event) => setSubtitle(event.target.value)}
           />
         </div>
         <div className="modal-form-fieldset">
@@ -32,15 +57,8 @@ function UserForm({ stateSetter }){
             name="abstract"
             autoComplete="off"
             maxLength="500"
-          />
-        </div>
-        <div className="modal-form-fieldset">
-          <label className="modal-form-label" htmlFor="email">E-mail</label>
-          <input
-            className="modal-form-input"
-            name="email"
-            autoComplete="off"
-            type="email"
+            value={abstract}
+            onChange={(event) => setAbstract(event.target.value)}
           />
         </div>
         <div className="modal-form-fieldset">
@@ -50,11 +68,13 @@ function UserForm({ stateSetter }){
             name="phone"
             autoComplete="off"
             type="text"
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
           />
         </div>
-        <span className="modal-form-error-message">Este e-mail já existe</span>
+        <span className="modal-form-error-message">{submitValidationMsg}</span>
         <div className="modal-form-buttons">
-          <button>Salvar</button>
+          <button onClick={handleSubmit}>Salvar</button>
           <button onClick={(event) => {
             /* IMPLEMENTAR: limpar dados do formulário antes de fechar */
             event.preventDefault();

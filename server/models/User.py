@@ -1,4 +1,3 @@
-from flask_sqlalchemy.model import camel_to_snake_case
 from models import ma
 from models import db
 
@@ -19,6 +18,8 @@ class User(db.Model):
   username = db.Column(db.String(80), unique=True, nullable=False)
   email = db.Column(db.String(120), unique=True, nullable=False)
   phone = db.Column(db.String(18), nullable=True)
+  abstract = db.Column(db.String(600), nullable=True)
+  subtitle = db.Column(db.String(128), nullable=True)
   password = db.Column(db.String(128), nullable=False)
   
   education = db.relationship("Education", cascade="all, delete")
@@ -34,7 +35,7 @@ class UserSchema(ma.Schema):
   production = ma.Nested(ProductionSchema, many=True)
 
   class Meta:
-    fields = ('id', 'username', 'email', 'phone', 'education', 'professional', 'projects', 'production')
+    fields = ('id', 'username', 'email', 'phone', 'abstract', 'subtitle', 'education', 'professional', 'projects', 'production')
 
 # Esquema para usuário individual
 user_schema = UserSchema() 

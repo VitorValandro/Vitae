@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
 import { login } from '../../services/auth';
@@ -13,13 +14,15 @@ function AuthForm({ register }) {
   const [phone, setPhone] = useState("");
   const [submitValidationMsg, setSubmitValidationMsg] = useState('');
 
+  const history = useHistory();
+
   function handleRegisterFlag(){
     setRegisterFlag(!registerFlag);
   }
 
   function handleUserRegister(event){
     event.preventDefault();
-    if(phone.length > 18){
+    if(phone.length > 20){
       setSubmitValidationMsg("O número de telefone deve respeitar o formato +55 (49) 94321-5678");
       return;
     }
@@ -34,7 +37,25 @@ function AuthForm({ register }) {
     api.post('/user/0', DATA)
       .then((response) => {
         /* IMPLEMENTAR DIRECT LOGIN E REDIRECIONAMENTO */
-        console.log(response);
+        const LOGIN_DATA = {
+          "username": username,
+          "password": password,
+        }
+
+        api.post('/user/auth', LOGIN_DATA)
+          .then((response) => {
+            login(response.data.token, LOGIN_DATA["username"]);
+          })
+          .catch((err) => {
+            if (err.response.data) {
+              const { error } = err.response.data
+              setSubmitValidationMsg(error);
+            }
+            else {
+              setSubmitValidationMsg('Um erro ocorreu ao logar');
+            }
+          })
+        history.push(`/usuario/${response.data.id}`)
       })
       .catch((err) => {
         if (err.response.data) {
@@ -57,7 +78,8 @@ function AuthForm({ register }) {
 
     api.post('/user/auth', DATA)
       .then((response) => {
-        login(response.data.token, DATA["username"]);
+        login(response.data.token, DATA["username"], response.data.user_id);
+        history.push(`/`);
       })
       .catch((err) => {
         if (err.response.data) {

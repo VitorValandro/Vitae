@@ -30,7 +30,7 @@ class UserAuth(Resource):
             "user": auth["username"], 
             "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=24)
           }, API_TOKEN)
-        return make_response(jsonify({"token":token, "user": auth["username"]}), 201)
+        return make_response(jsonify({"token":token, "user": auth["username"], "user_id": user.id}), 201)
       except Exception as e:
         print(str(e))
         return make_response(jsonify({"error":"Não foi possível autenticar usuário"}), 500)
