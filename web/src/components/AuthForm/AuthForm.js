@@ -75,14 +75,17 @@ function AuthForm({ register }) {
       <div className="form-content">
         {registerFlag ? (
           <form onSubmit={handleUserRegister}>
+            {/* FORMULÁRIO  DE REGISTRO */}
             <input 
               className="form-input" 
               type="text" 
               value={username}
               name="username"
               placeholder="Mario Aiala"
+              minlength="5" {/* tamanho mínimo de 5 caracteres */}
+              maxlength="50" {/* tamanho máximo de 50 caracteres */}
               onChange={e => { setUsername(e.target.value) }}
-              required
+              required {/* campo obrigatório */}
               autoComplete="off">
             </input>
             <input
@@ -90,7 +93,11 @@ function AuthForm({ register }) {
               type="email"
               value={email}
               name="email"
+              minlength="6"
+              maxlength="60"  
               placeholder="marioaiala@gmail.com"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" {/* expressão regular para o e-mail*/}
+              title="Deve corresponder ao padrão 'seuemail@provedor.com'">
               onChange={e => { setEmail(e.target.value) }}
               required
               autoComplete="off">
@@ -100,6 +107,8 @@ function AuthForm({ register }) {
               type="password"
               value={password}
               name="password"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Deve conter ao menos 1 número e 1 letra maiscula e minúscula, e pelo menos 8 ou mais caracteres">
               placeholder="Senha..."
               onChange={e => { setPassword(e.target.value) }}
               required
@@ -111,6 +120,8 @@ function AuthForm({ register }) {
               value={phone}
               name="phone"
               placeholder="+55 (49) 94321-5678"
+              pattern="/^\([1-9]{2}\)[0-9]{4,5}-[0-9]{4}$/" {/* expressão regular para o telefone*/}
+              title="Deve corresponder ao padrão (49)91234-5678">
               onChange={e => { setPhone(e.target.value) }}
               autoComplete="off">
             </input> 
@@ -118,12 +129,15 @@ function AuthForm({ register }) {
           </form>
         ) : (
           <form onSubmit={handleUserLogin}>
+          {/* FORMULÁRIO  DE LOGIN */}
             <input
               className="form-input"
               type="text"
               value={username}
               name="username"
               placeholder="Mario Aiala"
+              minlength="5"
+              maxlength="50"
               onChange={e => { setUsername(e.target.value) }}
               required
               autoComplete="off">
@@ -135,6 +149,7 @@ function AuthForm({ register }) {
               name="password"
               placeholder="Senha..."
               onChange={e => { setPassword(e.target.value) }}
+              {/* não é necessária validação de REGEX no login */}
               required
               autoComplete="off">
             </input>
