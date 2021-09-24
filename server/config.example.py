@@ -3,6 +3,8 @@
 
 # Preencha API_TOKEN com um hash único que servirá de identificador para a API.
 # Preencha CLIENT_ORIGIN com o URL do front end que poderá consumir a API (CORS).
+# Preencha UPLOAD_FOLDER com o URL da pasta onde os arquivos de upload serão armazenados
 
 API_TOKEN = "SECRET_KEY"
 CLIENT_ORIGIN = "http://localhost:3000"
+UPLOAD_FOLDER = "./upload"

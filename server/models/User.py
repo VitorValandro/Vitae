@@ -21,6 +21,8 @@ class User(db.Model):
   abstract = db.Column(db.String(600), nullable=True)
   subtitle = db.Column(db.String(128), nullable=True)
   password = db.Column(db.String(128), nullable=False)
+
+  photoURL = db.Column(db.String(128), default="default_photo.jpg")
   
   education = db.relationship("Education", cascade="all, delete")
   professional = db.relationship("Professional", cascade="all, delete")
@@ -35,7 +37,19 @@ class UserSchema(ma.Schema):
   production = ma.Nested(ProductionSchema, many=True)
 
   class Meta:
-    fields = ('id', 'username', 'email', 'phone', 'abstract', 'subtitle', 'education', 'professional', 'projects', 'production')
+    fields = (
+      'id', 
+      'username', 
+      'email', 
+      'phone', 
+      'abstract', 
+      'subtitle', 
+      'education', 
+      'professional', 
+      'projects', 
+      'production', 
+      'photoURL'
+    )
 
 # Esquema para usuário individual
 user_schema = UserSchema() 

@@ -11,7 +11,7 @@ from models.Professional import Professional
 from models.Projects import Projects
 from models.Production import Production
 
-from resources.User import UserRoute, UserList
+from resources.User import UserRoute, UserList, PhotoUpload
 from resources.UserAuth import UserAuth
 from resources.Info import Info
 
@@ -25,6 +25,7 @@ db.create_all()
 
 api = Api(app)
 api.add_resource(UserRoute, '/user/<int:user_id>')
+api.add_resource(PhotoUpload, '/user/<int:user_id>/upload')
 api.add_resource(UserList, '/users/')
 api.add_resource(UserAuth, '/user/auth')
 

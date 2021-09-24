@@ -6,6 +6,7 @@ import bcrypt
 from database import db
 from models.User import User, user_schema, users_schema
 from utils import auth
+from utils.file import ProfilePhoto
 
 class UserRoute(Resource):
   def get(self, user_id):
@@ -95,3 +96,30 @@ def user_exists(name):
     return User.query.filter_by(username = name).one()
   except:
     None
+
+
+class PhotoUpload(Resource):
+  # Faz o upload da foto do usuário para a pasta /uploads
+  # e armazena a URL no banco de dados
+  
+  @auth.auth_required
+  def post(self, user_id, user_authenticated):
+    if not user_id == user_authenticated.id:
+      return make_response(jsonify({"error": "Usuário sem permissão para atualizar os dados desse usuário."}), 401)
+    
+    try:
+      file = request.files['photo']
+      if file:
+        profile_photo = ProfilePhoto(file, user_id)
+        filename = profile_photo.save_file()
+
+        user = User.query.get(user_id)
+        user.photoURL = filename
+        db.session.commit()
+
+    except Exception as e:
+      if type(e).__name__ == 'ValueError':
+        return make_response(jsonify({"error": e.__str__()}), 400)
+      else:
+        print(e)
+        return make_response(jsonify({"error": "Ocorreu um erro ao fazer o upload do arquivo"}), 500)
