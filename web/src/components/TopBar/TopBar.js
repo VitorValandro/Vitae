@@ -10,15 +10,13 @@ function TopBar() {
       <div className="left-content">
         <Link to={'/'}>
           <img 
-            src={process.env.PUBLIC_URL + "/icons/arrow-left.svg"} 
+            src={process.env.PUBLIC_URL + "/icons/logo.png"} 
             alt="Go back" 
-            width="30"
+            width="80"
           />
         </Link>
       </div>
-      <div className="center-content">
-        <img src={process.env.PUBLIC_URL + "/icons/logo.png"} alt="VITAE" width="40" />
-      </div>
+      
       <div className="right-content">
         {isAuthenticated()
           ? <Link to={`/usuario/${getUserId()}`} className="nav-btn">{getUserThatIsAuthenticated()}</Link>
