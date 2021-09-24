@@ -135,7 +135,7 @@ function ProjectForm({ stateSetter, user }) {
         </div>
         {submitValidationMsg && <span className="modal-form-error-message">{submitValidationMsg}</span>}
         <div className="modal-form-buttons">
-          <button onClick={handleSubmit}>Salvar</button>
+          <input type="submit" onClick={handleSubmit} />
           <button onClick={(event) => {
             /* IMPLEMENTAR: limpar dados do formulário antes de fechar */
             event.preventDefault();

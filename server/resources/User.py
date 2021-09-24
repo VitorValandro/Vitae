@@ -85,7 +85,7 @@ class UserList(Resource):
   # Retorna uma lista com o nome de todos os usuários
   def get(self):
     try:
-      users = User.query.with_entities(User.username, User.abstract, User.subtitle, User.id).all()
+      users = User.query.with_entities(User.username, User.abstract, User.subtitle, User.photoURL, User.id).all()
       JSONresponse = users_schema.dump(users)
       return make_response(jsonify(JSONresponse), 201)
     except:

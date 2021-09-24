@@ -44,7 +44,7 @@ function AuthForm({ register }) {
 
         api.post('/user/auth', LOGIN_DATA)
           .then((response) => {
-            login(response.data.token, LOGIN_DATA["username"]);
+            login(response.data.token, LOGIN_DATA["username"], response.data.id);
           })
           .catch((err) => {
             if (err.response.data) {
@@ -136,7 +136,7 @@ function AuthForm({ register }) {
               onChange={e => { setPhone(e.target.value) }}
               autoComplete="off">
             </input> 
-            <button className="form-button">REGISTRAR</button>
+            <input type="submit" className="form-button" />
           </form>
         ) : (
           <form onSubmit={handleUserLogin}>
@@ -160,7 +160,7 @@ function AuthForm({ register }) {
               required
               autoComplete="off">
             </input>
-            <button type="submit" className="form-button">LOGIN</button>
+            <input type="submit" className="form-button" />
           </form>
         )}
         {submitValidationMsg !== '' && (

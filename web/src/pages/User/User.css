@@ -45,9 +45,14 @@
   width: 30%;
 }
 
-.user-header-left img {
+.user-header-left > img {
   border-radius: 10%;
   width: 90%;
+  cursor: pointer;
+}
+
+.user-header-left > input{
+  display: none;
 }
 
 .user-header-left div {

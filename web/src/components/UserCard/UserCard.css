@@ -36,6 +36,7 @@
 }
 
 .usercard-info-title{
+  color: var(--main-bg-color);
   font-size: 1.3rem;
   font-weight: 500;
   cursor: pointer;

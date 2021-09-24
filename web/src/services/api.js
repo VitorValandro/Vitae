@@ -8,4 +8,6 @@ const api = axios.create({
   headers: { 'Authorization': 'Bearer ' + token }
 });
 
+export const STATIC_FOLDER = `${api.defaults.baseURL}/uploads`;
+
 export default api;

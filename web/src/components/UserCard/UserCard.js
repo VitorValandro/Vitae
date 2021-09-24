@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { STATIC_FOLDER } from '../../services/api';
 import './UserCard.css'
 
 function UserCard({ data }) {
@@ -26,14 +27,16 @@ function UserCardDesktop({ data }) {
       <div className="usercard-info-left">
         <img
           className="usercard-info-image"
-          src="https://github.com/V.png"
+          src={`${STATIC_FOLDER}/${data.photoURL}`}
           alt="foto do usuário"
         />
       </div>
       <div className="usercard-info-right">
         <div className="usercard-info-header">
           <div>
-            <span className="usercard-info-title">{data.username}</span>
+            <Link to={`usuario/${data.id}`}>
+              <span className="usercard-info-title">{data.username}</span>
+            </Link>
             <span className="usercard-info-subtitle">{data.subtitle}</span>
           </div>
           <Link to={`usuario/${data.id}`}>
@@ -55,11 +58,13 @@ function UserCardMobile({ data }){
         <div className="usercard-info-header">
           <img
             className="usercard-info-image"
-            src="https://github.com/V.png"
+            src={`${STATIC_FOLDER}/${data.photoURL}`}
             alt="foto do usuário"
           />
           <div>
-            <span className="usercard-info-title">{data.username}</span>
+            <Link to={`usuario/${data.id}`}>
+              <span className="usercard-info-title">{data.username}</span>
+            </Link>
             <span className="usercard-info-subtitle">{data.subtitle}</span>
           </div>
         </div>

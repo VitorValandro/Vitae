@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, useParams } from 'react-router';
 
 import '../../global.css';
 import './User.css';
 
 import { getUserThatIsAuthenticated, isAuthenticated, logout } from '../../services/auth';
-import api from '../../services/api';
+import api, {STATIC_FOLDER} from '../../services/api';
 
 
 import TopBar from '../../components/TopBar/TopBar';
@@ -27,15 +27,36 @@ function User() {
   const [productionFormModal, setProductionFormModal] = useState(false);
   const [projectFormModal, setProjectFormModal] = useState(false);
 
+  const uploadInfo = useRef(null);
   const { userId } = useParams();
   const history = useHistory();
 
-  useEffect(() => getUserInfo(), []);
+  useEffect(() => getUserInfo(), [
+    userFormModal,
+    educationFormModal,
+    professionalFormModal,
+    productionFormModal,
+    projectFormModal,
+  ]);
 
   async function getUserInfo(){
     await api.get(`/user/${userId}`)
       .then((response) => {
         setUserInfo(response.data);
+      })
+  }
+
+  async function uploadUserPhoto(file) {
+    const formData = new FormData();
+
+    formData.append('photo', file)
+    await api.post(`/user/${userId}/upload`, formData)
+      .then((response) => {
+        alert('Foto atualizada com sucesso')
+        window.location.reload();
+      })
+      .catch((err) => {
+        alert(err.response.data.error)
       })
   }
 
@@ -57,7 +78,14 @@ function User() {
           </div>
           <div className="user-header">
             <div className="user-header-left">
-              <img src="https://github.com/V.png" alt="" />
+              <input 
+                id="file_upload" 
+                type="file" 
+                name="photo" 
+                ref={uploadInfo} 
+                onChange={(e) => { uploadUserPhoto(e.target.files[0]) }}
+              />
+              <img src={`${STATIC_FOLDER}/${userInfo.photoURL}`} alt="" onClick={() => {uploadInfo.current.click();}}/>
               <div>
                 <span className="user-info-subtitle"><b>Email: </b>{userInfo.email}</span><br />
                 <span className="user-info-subtitle"><b>Telefone: </b>{userInfo.phone}</span>
