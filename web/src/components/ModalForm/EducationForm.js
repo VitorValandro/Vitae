@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import api from '../../services/api';
+import { getToken } from '../../services/auth';
 import Modal from '../Modal/Modal';
 
 function EducationForm({ stateSetter, user }) {
@@ -26,7 +27,7 @@ function EducationForm({ stateSetter, user }) {
       "user_id": Number(user)
     }
     
-    await api.post(`/user/${user}/info/education/0`, DATA)
+    await api.post(`/user/${user}/info/education/0`, DATA, {headers: {'Authorization': `Bearer ${getToken()}`}})
       .then((response) => {
         alert('Dados salvos com sucesso')
         stateSetter();

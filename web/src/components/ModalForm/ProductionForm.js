@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import api from '../../services/api';
+import { getToken } from '../../services/auth';
 import Modal from '../Modal/Modal';
 
 function ProductionForm({ stateSetter, user }) {
@@ -25,7 +26,7 @@ function ProductionForm({ stateSetter, user }) {
       "user_id": Number(user)
     }
 
-    await api.post(`/user/${user}/info/production/0`, DATA)
+    await api.post(`/user/${user}/info/production/0`, DATA, { headers: {'Authorization': `Bearer ${getToken()}`}})
       .then((response) => {
         alert('Dados salvos com sucesso')
         stateSetter();

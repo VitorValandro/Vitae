@@ -35,6 +35,7 @@ class Info(Resource):
     data = request.get_json()
 
     if not user_id == user_authenticated.id == data["user_id"]:
+      print(user_id, user_authenticated.id, data["user_id"])
       '''
         Garante que o usuário existe
         Garante que o usuário está alterando as próprias informações, e não de outro user_id

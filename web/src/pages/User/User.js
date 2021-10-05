@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useHistory, useParams } from 'react-router';
 
 import '../../global.css';
 import './User.css';
 
-import { getUserThatIsAuthenticated, isAuthenticated, logout } from '../../services/auth';
+import { getUserThatIsAuthenticated, isAuthenticated, logout, getToken } from '../../services/auth';
 import api, {STATIC_FOLDER} from '../../services/api';
-
 
 import TopBar from '../../components/TopBar/TopBar';
 import Footer from '../../components/Footer/Footer';
@@ -31,26 +30,33 @@ function User() {
   const { userId } = useParams();
   const history = useHistory();
 
-  useEffect(() => getUserInfo(), [
+  const getUserInfo = useCallback(async () => {
+    await api.get(`/user/${userId}`)
+      .then((response) => {
+        setUserInfo(response.data);
+      })
+  }, [userId])
+
+  useEffect(() => {
+    getUserInfo(); 
+  }, [
     userFormModal,
     educationFormModal,
     professionalFormModal,
     productionFormModal,
     projectFormModal,
+    getUserInfo
   ]);
 
-  async function getUserInfo(){
-    await api.get(`/user/${userId}`)
-      .then((response) => {
-        setUserInfo(response.data);
-      })
-  }
+  useEffect(() => {
+    document.title = `VITAE - Página do usuário`;
+  }, []);
 
   async function uploadUserPhoto(file) {
     const formData = new FormData();
 
     formData.append('photo', file)
-    await api.post(`/user/${userId}/upload`, formData)
+    await api.post(`/user/${userId}/upload`, formData, { headers: { 'Authorization': `Bearer ${getToken()}` } })
       .then((response) => {
         alert('Foto atualizada com sucesso')
         window.location.reload();
@@ -124,7 +130,7 @@ function User() {
             </div>
             {
               userInfo.education && userInfo.education.length !== 0
-                ? userInfo.education.map(section =>(<Education data={section} />))
+                ? userInfo.education.map(section =>(<Education data={section} key={section.name}/>))
                 : (<span className="user-section-null">Não há nenhuma informação aqui</span>)
             }
           </div>
@@ -143,7 +149,7 @@ function User() {
             </div>
             {
               userInfo.professional && userInfo.professional.length !== 0
-                ? userInfo.professional.map(section => (<Professional data={section} />))
+                ? userInfo.professional.map(section => (<Professional data={section} key={section.company}/>))
                 : (<span className="user-section-null">Não há nenhuma informação aqui</span>)
             }
           </div>
@@ -162,7 +168,7 @@ function User() {
             </div>
             {
               userInfo.production && userInfo.production.length !== 0
-                ? userInfo.production.map(section => (<Production data={section} />))
+                ? userInfo.production.map(section => (<Production data={section} key={section.name}/>))
                 : (<span className="user-section-null">Não há nenhuma informação aqui</span>)
             }
           </div>
@@ -181,7 +187,7 @@ function User() {
             </div>
             {
               userInfo.projects && userInfo.projects.length !== 0
-                ? userInfo.projects.map(section => (<Project data={section} />))
+                ? userInfo.projects.map(section => (<Project data={section} key={section.name}/>))
                 : (<span className="user-section-null">Não há nenhuma informação aqui</span>)
             }
           </div>

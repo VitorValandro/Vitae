@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import api from '../../services/api';
+import { getToken } from '../../services/auth';
 import Modal from '../Modal/Modal';
 
 function ProjectForm({ stateSetter, user }) {
@@ -27,7 +28,7 @@ function ProjectForm({ stateSetter, user }) {
       "user_id": Number(user)
     }
 
-    await api.post(`/user/${user}/info/projects/0`, DATA)
+    await api.post(`/user/${user}/info/projects/0`, DATA, { headers: { 'Authorization': `Bearer ${getToken()}` } })
       .then((response) => {
         alert('Dados salvos com sucesso')
         stateSetter();
@@ -137,7 +138,6 @@ function ProjectForm({ stateSetter, user }) {
         <div className="modal-form-buttons">
           <input type="submit" onClick={handleSubmit} />
           <button onClick={(event) => {
-            /* IMPLEMENTAR: limpar dados do formulário antes de fechar */
             event.preventDefault();
             stateSetter();
           }}>

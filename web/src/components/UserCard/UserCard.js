@@ -23,7 +23,7 @@ function UserCard({ data }) {
 
 function UserCardDesktop({ data }) {
   return (
-    <div className="usercard-info-container">
+    <div className="usercard-info-container" key={data.id}>
       <div className="usercard-info-left">
         <img
           className="usercard-info-image"

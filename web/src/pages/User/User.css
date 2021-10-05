@@ -55,9 +55,9 @@
   display: none;
 }
 
-.user-header-left div {
+.user-header-left > div {
   margin-top: 10px;
-  width: 100%;
+  width: 200%;
 }
 
 .user-header-left b {
@@ -122,6 +122,11 @@ hr {
   color: var(--details);
   cursor: pointer;
   transition: all .2s;
+}
+
+.user-logout-button:hover{
+  background-color: var(--details);
+  color:white;
 }
 
 @media (max-width: 900px){

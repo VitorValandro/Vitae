@@ -13,6 +13,10 @@ function Home() {
 
   useEffect(() => getUserList(), []);
 
+  useEffect(() => {
+    document.title = `VITAE`;
+  }, []);
+
   async function getUserList(){
     await api.get('/users/')
       .then((response) =>{
@@ -26,7 +30,7 @@ function Home() {
       <div className="home-container">
         <div className="home-content">
           {userList.map((user) => {
-            return (<UserCard data={user} />)
+            return (<UserCard data={user} key={user.id}/>)
           })}
         </div>
       </div>

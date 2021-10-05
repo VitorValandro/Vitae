@@ -111,14 +111,17 @@ class PhotoUpload(Resource):
       file = request.files['photo']
       if file:
         profile_photo = ProfilePhoto(file, user_id)
+        # salva a foto na pasta /uploads
         filename = profile_photo.save_file()
 
+        # armazena o URL no banco de dados
         user = User.query.get(user_id)
         user.photoURL = filename
         db.session.commit()
 
     except Exception as e:
       if type(e).__name__ == 'ValueError':
+        print(e)
         return make_response(jsonify({"error": e.__str__()}), 400)
       else:
         print(e)

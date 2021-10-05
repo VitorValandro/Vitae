@@ -25,12 +25,14 @@ function Footer() {
           title="Ir para cima"
           onClick={scrollToTop}
         />
-        <img
-          className="footer-icon"
-          src={process.env.PUBLIC_URL + "/icons/github.svg"}
-          alt="Repositório do projeto"
-          title="Repositório do projeto"
-        />
+        <a href="https://github.com/VitorValandro/Vitae" rel="noreferrer" target="_blank">
+          <img
+            className="footer-icon"
+            src={process.env.PUBLIC_URL + "/icons/github.svg"}
+            alt="Repositório do projeto"
+            title="Repositório do projeto"
+          />
+        </a>
       </div>
     </div>
   );

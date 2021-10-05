@@ -1,6 +1,7 @@
 import React, {useState}  from 'react';
 
 import api from '../../services/api';
+import { getToken } from '../../services/auth';
 import Modal from '../Modal/Modal';
 
 function UserForm({ stateSetter, data, user }){
@@ -17,7 +18,7 @@ function UserForm({ stateSetter, data, user }){
       "phone":phone
     }
 
-    await api.put(`/user/${user}`, DATA)
+    await api.put(`/user/${user}`, DATA, { headers: { 'Authorization': `Bearer ${getToken()}` } })
       .then((response) => {
         alert('Dados salvos com sucesso')
         stateSetter();

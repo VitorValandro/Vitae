@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import api from '../../services/api';
@@ -36,7 +36,6 @@ function AuthForm({ register }) {
 
     api.post('/user/0', DATA)
       .then((response) => {
-        /* IMPLEMENTAR DIRECT LOGIN E REDIRECIONAMENTO */
         const LOGIN_DATA = {
           "username": username,
           "password": password,
@@ -44,7 +43,7 @@ function AuthForm({ register }) {
 
         api.post('/user/auth', LOGIN_DATA)
           .then((response) => {
-            login(response.data.token, LOGIN_DATA["username"], response.data.id);
+            login(response.data.token, LOGIN_DATA["username"], response.data.user_id);
           })
           .catch((err) => {
             if (err.response.data) {
@@ -152,7 +151,7 @@ function AuthForm({ register }) {
             </input>
             <input
               className="form-input"
-              type="text"
+              type="password"
               value={password}
               name="password"
               placeholder="Senha..."
