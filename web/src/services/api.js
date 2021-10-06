@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'https://vitae-restapi.herokuapp.com/',
 });
 
 export const STATIC_FOLDER = `${api.defaults.baseURL}/uploads`;
