@@ -1,3 +1,7 @@
 server/db.sqlite
 server/config.py
+server/Lib/
+server/Scripts/
+server/pyvenv.cfg
+server/Include
 **__pycache__
