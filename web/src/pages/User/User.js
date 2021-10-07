@@ -91,7 +91,7 @@ function User() {
                 ref={uploadInfo} 
                 onChange={(e) => { uploadUserPhoto(e.target.files[0]) }}
               />
-              <img src={`${STATIC_FOLDER}/${userInfo.photoURL}`} alt="" onClick={() => {uploadInfo.current.click();}}/>
+              <img src={`${STATIC_FOLDER}/${userInfo.photoURL || 'default_photo.jpg'}`} alt="" onClick={() => {uploadInfo.current.click();}}/>
               <div>
                 <span className="user-info-subtitle"><b>Email: </b>{userInfo.email}</span><br />
                 <span className="user-info-subtitle"><b>Telefone: </b>{userInfo.phone}</span>

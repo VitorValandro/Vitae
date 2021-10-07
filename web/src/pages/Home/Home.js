@@ -9,7 +9,7 @@ import Footer from '../../components/Footer/Footer';
 import UserCard from '../../components/UserCard/UserCard';
 
 function Home() {
-  const [userList, setUserList] = useState(['Mario Aiala']);
+  const [userList, setUserList] = useState([]);
 
   useEffect(() => getUserList(), []);
 
@@ -29,9 +29,11 @@ function Home() {
       <TopBar />
       <div className="home-container">
         <div className="home-content">
-          {userList.map((user) => {
-            return (<UserCard data={user} key={user.id}/>)
-          })}
+          {
+            userList && userList.length !== 0
+              ? userList.map((user) => {return (<UserCard data={user} key={user}/>)})
+              : (<span className="null-message">Ainda não existem usuários cadastrados.</span>)
+          }
         </div>
       </div>
       <Footer />

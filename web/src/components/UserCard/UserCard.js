@@ -27,8 +27,8 @@ function UserCardDesktop({ data }) {
       <div className="usercard-info-left">
         <img
           className="usercard-info-image"
-          src={`${STATIC_FOLDER}/${data.photoURL}`}
-          alt="foto do usuário"
+          src={`${STATIC_FOLDER}/${data.photoURL || 'default_photo.jpg'}`}
+          alt="Foto do usuário"
         />
       </div>
       <div className="usercard-info-right">
@@ -58,8 +58,8 @@ function UserCardMobile({ data }){
         <div className="usercard-info-header">
           <img
             className="usercard-info-image"
-            src={`${STATIC_FOLDER}/${data.photoURL}`}
-            alt="foto do usuário"
+            src={`${STATIC_FOLDER}/${data.photoURL || 'default_photo.jpg'}`}
+            alt="Foto do usuário"
           />
           <div>
             <Link to={`usuario/${data.id}`}>
