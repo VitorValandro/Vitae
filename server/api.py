@@ -16,7 +16,7 @@ from resources.UserAuth import UserAuth
 from resources.Info import Info
 
 app = Flask(__name__, static_folder="uploads")
-CORS(app, resources={"/*": {"origins":CLIENT_ORIGIN}})
+CORS(app, origins=CLIENT_ORIGIN)
 
 config_database_path(app)
 db.app = app
