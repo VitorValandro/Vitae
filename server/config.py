@@ -3,5 +3,5 @@
 # Preencha UPLOAD_FOLDER com o URL da pasta onde os arquivos de upload serão armazenados
 
 API_TOKEN = "*F-J@NcRfUjXn2r5u8x/A?D(G+KbPdSgVkYp3s6v9y$B&E)H@McQfThWmZq4t7w!"
-CLIENT_ORIGIN = "http://localhost:3000"
+CLIENT_ORIGIN = ["http://localhost:3000", "https://vitae-curriculum.vercel.app"]
 UPLOAD_FOLDER = "./uploads"
