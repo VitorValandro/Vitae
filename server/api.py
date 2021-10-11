@@ -21,7 +21,7 @@ CORS(app, origins=CLIENT_ORIGIN)
 config_database_path(app)
 db.app = app
 db.init_app(app)
-db.create_all(checkfirst=True)
+db.create_all()
 
 api = Api(app)
 api.add_resource(UserRoute, '/user/<int:user_id>')

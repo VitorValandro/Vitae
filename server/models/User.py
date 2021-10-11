@@ -7,6 +7,7 @@ from models.Projects import ProjectsSchema
 from models.Production import ProductionSchema
 
 class User(db.Model):
+  __tablename__ = 'user'
   def __init__(self, username, email, phone, password):
     self.username = username
     self.email = email
