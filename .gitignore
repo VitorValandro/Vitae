@@ -3,4 +3,5 @@ server/Lib/
 server/Scripts/
 server/pyvenv.cfg
 server/Include
+server/config.py
 **__pycache__
