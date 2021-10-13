@@ -34,7 +34,7 @@
 }
 
 .right-content{
-  width: 33%;
+  width: auto;
   height: 100%;
   display: flex;
   flex-direction: row;
