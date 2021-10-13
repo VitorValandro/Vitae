@@ -96,7 +96,7 @@ Go to project's root diretory and run the commands below:
 
 ```bash
 
-cd frontend
+cd web
 
 # Install dependencies - I'm using npm, you can use yarn if you want
 npm install
