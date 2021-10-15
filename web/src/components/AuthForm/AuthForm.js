@@ -44,6 +44,7 @@ function AuthForm({ register }) {
         api.post('/user/auth', LOGIN_DATA)
           .then((response) => {
             login(response.data.token, LOGIN_DATA["username"], response.data.user_id);
+            history.push(`/usuario/${response.data.user_id}`)
           })
           .catch((err) => {
             if (err.response.data) {
@@ -54,7 +55,6 @@ function AuthForm({ register }) {
               setSubmitValidationMsg('Um erro ocorreu ao logar');
             }
           })
-        history.push(`/usuario/${response.data.id}`)
       })
       .catch((err) => {
         if (err.response.data) {
@@ -78,7 +78,7 @@ function AuthForm({ register }) {
     api.post('/user/auth', DATA)
       .then((response) => {
         login(response.data.token, DATA["username"], response.data.user_id);
-        history.push(`/`);
+        history.push(`/usuario/${response.data.user_id}`);
       })
       .catch((err) => {
         if (err.response.data) {
